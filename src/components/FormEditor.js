@@ -12,14 +12,14 @@ function FormEditor(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("title", title);
     formData.append("attachFiles", selectedFile);
-    formData.append("content", content);
     try {
       const response = await axios({
         method: "post",
         url: "/admin/notice/save",
-        data: formData,
+        title: title,
+        attachFiles: formData,
+        content: content,
         headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(response);
