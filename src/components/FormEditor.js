@@ -13,17 +13,23 @@ function FormEditor(props) {
     event.preventDefault();
     const formData = new FormData();
     formData.append("attachFiles", selectedFile);
-    console.log(title, formData, content);
     try {
-      const response = await axios.post("/admin/notice/save", {
-        title: title,
-        attachFiles: formData,
-        content: content,
-        // headers: { "Content-Type": "multipart/form-data" },
-      });
+      const response = await axios.post(
+        "/admin/notice/save",
+        {
+          title,
+          formData,
+          content,
+        },
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       console.log(response);
     } catch (error) {
-      console.log(error);
+      alert(error);
     }
   };
 
@@ -43,7 +49,7 @@ function FormEditor(props) {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} encType="multipart/form-data">
       <table
         style={{
           position: "relative",
