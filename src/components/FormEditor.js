@@ -13,14 +13,13 @@ function FormEditor(props) {
     event.preventDefault();
     const formData = new FormData();
     formData.append("attachFiles", selectedFile);
+    console.log(title, formData, content);
     try {
-      const response = await axios({
-        method: "post",
-        url: "/admin/notice/save",
+      const response = await axios.post("/admin/notice/save", {
         title: title,
         attachFiles: formData,
         content: content,
-        headers: { "Content-Type": "multipart/form-data" },
+        // headers: { "Content-Type": "multipart/form-data" },
       });
       console.log(response);
     } catch (error) {
