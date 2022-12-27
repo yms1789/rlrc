@@ -28,7 +28,7 @@ function Login() {
     }
     try {
       setLoading(true);
-      const response = await axios.post(`api/admin/login`, {
+      const response = await axios.post(`/login`, {
         loginId: userId,
         password: password,
       });
