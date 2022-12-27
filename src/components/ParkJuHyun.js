@@ -4,11 +4,11 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import prevArrow from "../../static/prevArrow.png";
-import nextArrow from "../../static/nextArrow.png";
-import parkjuhyun1 from "../../static/images/parkjuhyun1.png";
-import parkjuhyun2 from "../../static/images/parkjuhyun2.png";
-import parkjuhyun3 from "../../static/images/parkjuhyun3.png";
+import prevArrow from "../static/prevArrow.png";
+import nextArrow from "../static/nextArrow.png";
+import parkjuhyun1 from "../static/images/parkjuhyun1.png";
+import parkjuhyun2 from "../static/images/parkjuhyun2.png";
+import parkjuhyun3 from "../static/images/parkjuhyun3.png";
 const PreviousBtn = (props) => {
   const { className, onClick, currentSlide } = props;
   return (

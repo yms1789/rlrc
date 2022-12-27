@@ -32,8 +32,7 @@ import introduction7 from "../static/images/강미숙교수님.png";
 
 import ContentBar from "../components/ContentBar";
 import ContentIndex from "../components/ContentIndex";
-import AboutRLRC from "./AboutRLRC";
-import NewNotice from "../pages/NewNotice";
+
 //
 export default function Research() {
   const [showContent, setShowContent] = useState(false);

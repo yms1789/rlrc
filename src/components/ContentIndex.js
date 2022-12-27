@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 import back from "../static/back.png";
 
 function ContentIndex(props) {
@@ -111,6 +111,18 @@ function ContentIndex(props) {
               Research Outcomes
             </StyledLink>
           </TableData>
+          <TableData>
+            <StyledLink
+              to="/Login"
+              spy={true}
+              smooth={true}
+              onSetActive={() => {
+                setShow(false);
+              }}
+            >
+              로그인
+            </StyledLink>
+          </TableData>
         </tr>
         <tr>
           <TableData>
@@ -204,7 +216,7 @@ const BackButton = styled.button`
   background-color: transparent;
   border-width: 0px;
 `;
-const StyledLink = styled((props) => <Route {...props} />)`
+const StyledLink = styled((props) => <NavLink {...props} />)`
   &:hover {
     color: #447bf7;
   }

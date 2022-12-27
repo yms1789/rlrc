@@ -4,9 +4,9 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import prevArrow from "../../public/static/prevArrow.png";
-import nextArrow from "../../public/static/nextArrow.png";
-import logo from "../../public/static/images/parkjuhyun1.png";
+import prevArrow from "../static/prevArrow.png";
+import nextArrow from "../static/nextArrow.png";
+import logo from "../static/images/parkjuhyun1.png";
 const PreviousBtn = (props) => {
   const { className, onClick, currentSlide } = props;
   return (

@@ -4,16 +4,16 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
-import prevArrow from "../../static/prevArrow.png";
-import nextArrow from "../../static/nextArrow.png";
-import rhojunsuk1 from "../../static/images/rhojunsuk1.png";
-import rhojunsuk2 from "../../static/images/rhojunsuk2.png";
-import rhojunsuk3 from "../../static/images/rhojunsuk4.png";
-import rhojunsuk4 from "../../static/images/rhojunsuk3.png";
-import rhojunsuk5 from "../../static/images/rhojunsuk5.png";
-import rhojunsuk6 from "../../static/images/rhojunsuk6.png";
-import rhojunsuk7 from "../../static/images/rhojunsuk7.png";
-import rhojunsuk8 from "../../static/images/rhojunsuk8.png";
+import prevArrow from "../static/prevArrow.png";
+import nextArrow from "../static/nextArrow.png";
+import rhojunsuk1 from "../static/images/rhojunsuk1.png";
+import rhojunsuk2 from "../static/images/rhojunsuk2.png";
+import rhojunsuk3 from "../static/images/rhojunsuk4.png";
+import rhojunsuk4 from "../static/images/rhojunsuk3.png";
+import rhojunsuk5 from "../static/images/rhojunsuk5.png";
+import rhojunsuk6 from "../static/images/rhojunsuk6.png";
+import rhojunsuk7 from "../static/images/rhojunsuk7.png";
+import rhojunsuk8 from "../static/images/rhojunsuk8.png";
 const PreviousBtn = (props) => {
   const { className, onClick, currentSlide } = props;
   return (

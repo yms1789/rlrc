@@ -6,9 +6,6 @@ import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import styles from "../styles/newNotice.module.css";
 
-import Research from "./Research";
-import AboutRLRC from "./AboutRLRC";
-
 import SearchIcon from "../static/search.png";
 import downArrow from "../static/downArrow.png";
 import styled from "styled-components";
@@ -148,9 +145,7 @@ export default function NewNotice() {
   const [showContent, setShowContent] = useState(false);
   const [content, setContent] = useState("news");
   const [posts, setPosts] = useState(page1);
-  const limit = 6;
   const [page, setPage] = useState(1);
-  const offset = (page - 1) * limit;
   const [showButton, setShowButton] = useState(
     Array(posts.numberOfElements).fill(false)
   );

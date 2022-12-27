@@ -7,6 +7,7 @@ import KimHaeKyoung from "../components/KimHaeKyoung";
 import JungHoYoul from "../components/JungHoYoul";
 import KangMiSook from "../components/KangMiSook";
 import KangSeokWon from "../components/KangSeokWon";
+import { useLocation } from "react-router";
 const professorComponent = {
   Joo: <JooSangWoo />,
   Rho: <RhoJunSuk />,
@@ -18,17 +19,11 @@ const professorComponent = {
   Won: <KangSeokWon />,
 };
 function ResearchField(props) {
-  let professor;
-  if (props.location.state) {
-    professor =
-      props &&
-      Object.values(props.location.state)
-        .slice(0, Object.values(props.location.state).length - 1)
-        .join("");
-  } else {
-    professor = "Joo";
-  }
-
+  const { state } = useLocation();
+  const professor = Object.values(state)
+    .slice(0, Object.values(state).length)
+    .join("");
+  console.log(professor);
   return <div>{professorComponent[professor]}</div>;
 }
 

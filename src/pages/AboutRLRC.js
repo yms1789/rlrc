@@ -13,8 +13,7 @@ import slide06 from "../static/images/홀로그램디스플레이.jpg";
 import materialIcon from "../static/materialIcon.png";
 import ContentBar from "../../src/components/ContentBar";
 import ContentIndex from "../../src/components/ContentIndex";
-import NewNotice from "./NewNotice";
-import Research from "./Research";
+import styled from "styled-components";
 const materialImages = [
   {
     id: 1,
@@ -183,3 +182,12 @@ export default function AboutRLRC() {
     </main>
   );
 }
+const StyledLink = styled((props) => <Link {...props} />)`
+  &:hover {
+    color: #447bf7;
+  }
+  &:link {
+    color: white;
+  }
+  text-decoration: none;
+`;
