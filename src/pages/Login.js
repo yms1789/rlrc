@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from "react";
+import React, { useState, useCallback } from "react";
 import axios from "axios";
 import styled from "styled-components";
 import loginImage from "../static/images/LoginImage.png";
@@ -13,7 +13,7 @@ function Login() {
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     console.log(userId, password);
     if (loading) {
@@ -28,11 +28,11 @@ function Login() {
     }
     try {
       setLoading(true);
-      // const response = await axios.post(`api/admin/login`, {
-      //   userId: userId,
-      //   password: password,
-      // });
-      // console.log("response data: ", response.data.userType);
+      const response = await axios.post(`api/admin/login`, {
+        loginId: userId,
+        password: password,
+      });
+      console.log("response data: ", response.data.userType);
       alert("로그인 되었습니다.");
       setLoading(false);
       // dispatch(
@@ -44,10 +44,10 @@ function Login() {
       navigate("/NewNotice");
     } catch (error) {
       setLoading(false);
-      // const errorResponse = error.response;
-      // if (errorResponse) {
-      //   alert("회원정보와 일치하지 않습니다.");
-      // }
+      const errorResponse = error.response;
+      if (errorResponse) {
+        alert("회원정보와 일치하지 않습니다.");
+      }
     }
   };
   const handleId = useCallback((e) => {
