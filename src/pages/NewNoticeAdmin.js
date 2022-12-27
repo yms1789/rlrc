@@ -202,6 +202,9 @@ export default function NewNoticeAdmin() {
   const handleChange = useCallback((e) => {
     setText(e.currentTarget.value);
   }, []);
+  const handleSearch = useCallback((e) => {
+    alert("asd");
+  }, []);
   return (
     <main className={styles.main}>
       <>
@@ -230,9 +233,7 @@ export default function NewNoticeAdmin() {
               <NoticeTitle>NEWS</NoticeTitle>
               <form onSubmit={handleSubmit}>
                 <Search placeholder="검색" onChange={handleChange} />
-                <button onClick={handleSubmit}>
-                  <Icon src={SearchIcon}></Icon>
-                </button>
+                <Icon src={SearchIcon} onClick={handleSearch}></Icon>
               </form>
               <ButtonContainer>
                 <Button value="add" onClick={handleAddNews}>
@@ -320,9 +321,7 @@ export default function NewNoticeAdmin() {
             <NoticeTitle>NOTICE</NoticeTitle>
             <form onSubmit={handleSubmit}>
               <Search placeholder="검색" />
-              <button onClick={handleSubmit}>
-                <Icon src={SearchIcon}></Icon>
-              </button>
+              <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             </form>
             <Line />
             <PaginationContainer>
@@ -495,7 +494,7 @@ const Search = styled.input`
 `;
 const ButtonContainer = styled.div`
   position: relative;
-  top: 87.1em;
+  top: 88.2em;
   left: 74em;
   width: 18em;
   display: flex;

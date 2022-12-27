@@ -41,7 +41,7 @@ function Login() {
       //     isLogIn: response.data.logIn,
       //   })
       // );
-      navigate("/NewNotice");
+      navigate("/NewNoticeAdmin");
     } catch (error) {
       setLoading(false);
       const errorResponse = error.response;
