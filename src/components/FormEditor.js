@@ -11,14 +11,14 @@ function FormEditor(props) {
   const [content, setContent] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
-    // const formData = new FormData();
-    // formData.append("attachFiles", selectedFile);
+    const formData = new FormData();
+    formData.append("attachFiles", ...selectedFile);
     try {
       const response = await axios.post(
         "/admin/notice/save",
         {
           title: title,
-          attachFiles: selectedFile,
+          attachFiles: formData,
           content: content,
         },
         {
