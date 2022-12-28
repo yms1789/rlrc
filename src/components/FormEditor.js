@@ -11,14 +11,14 @@ function FormEditor(props) {
   const [content, setContent] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const formData = new FormData();
-    formData.append("attachFiles", selectedFile);
+    // const formData = new FormData();
+    // formData.append("attachFiles", selectedFile);
     try {
       const response = await axios.post(
         "/admin/notice/save",
         {
           title: title,
-          attachFiles: formData,
+          attachFiles: selectedFile,
           content: content,
         },
         {
@@ -42,6 +42,7 @@ function FormEditor(props) {
   const handleFileSelect = (event) => {
     const fileNames = Array.from(event.target.files).map((ele) => ele.name);
     setSelectedFileName(fileNames);
+    console.log(event.target.files);
     setSelectedFile(event.target.files);
   };
   const toAdminHome = () => {
@@ -178,7 +179,7 @@ function FormEditor(props) {
                   height: "47px",
                   right: "6px",
                 }}
-                read
+                readOnly
               ></input>
             </div>
           </td>
