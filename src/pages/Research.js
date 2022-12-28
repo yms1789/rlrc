@@ -36,7 +36,7 @@ import Pagination from "../components/Pagination";
 
 import researchOutcomes from "../static/images/ResearchOutcomes.png";
 import SearchIcon from "../static/search.png";
-//
+
 export default function Research() {
   const [showContent, setShowContent] = useState(false);
   const [showIntro, setShowIntro] = useState(introduction1);

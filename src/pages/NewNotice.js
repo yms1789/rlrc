@@ -11,7 +11,18 @@ import SearchIcon from "../static/search.png";
 import styled from "styled-components";
 
 const page1 = {
-  content: [],
+  content: [
+    {
+      id: 1,
+      attachFile: null,
+      title: "8",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:32.530192",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+  ],
+  numberOfElements: 1,
 };
 
 export default function NewNotice() {
@@ -36,7 +47,7 @@ export default function NewNotice() {
     }
   };
   const handleClick = (id) => {
-    navigate("/Detail", { state: [id, curContent] });
+    navigate("/Detail", { state: [id, curContent, page1] });
   };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);
