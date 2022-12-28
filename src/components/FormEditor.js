@@ -1,9 +1,11 @@
 import React, { useState, useRef } from "react";
 import axios from "axios";
 import styled from "styled-components";
+import { useNavigate } from "react-router-dom";
 function FormEditor(props) {
-  const setAddNews = props.setAddNews;
-  const addNews = props.addNews;
+  const navigate = useNavigate();
+  const setAddContents = props.setAddContents;
+  const addContents = props.addContents;
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState([]);
   const input = useRef(null);
@@ -16,14 +18,20 @@ function FormEditor(props) {
     selectedFile.forEach((file) => formData.append("attachFiles", file));
     formData.append("content", content);
     try {
-      const response = await axios.post("/admin/notice/save", formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
-      console.log(response);
+      const response = await axios.post(
+        `/admin/${addContents}/save`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      toAdminHome();
     } catch (error) {
-      alert(error);
+      if (error.status === 400) {
+        navigate("/Login");
+      }
     }
   };
 
@@ -39,7 +47,7 @@ function FormEditor(props) {
     setSelectedFile(Array.from(event.target.files));
   };
   const toAdminHome = () => {
-    setAddNews(false);
+    setAddContents(false);
   };
 
   return (

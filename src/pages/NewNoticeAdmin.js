@@ -169,6 +169,9 @@ export default function NewNoticeAdmin() {
   const handleAddNews = () => {
     setAddNews(true);
   };
+  const handleAddNotice = () => {
+    setAddNotice(true);
+  };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);
     arr[posts.numberOfElements - id] = !arr[posts.numberOfElements - id];
@@ -209,10 +212,11 @@ export default function NewNoticeAdmin() {
     <main className={styles.main}>
       <>
         <Title>NEWS & NOTICE</Title>
-        <a href="new_notice"></a>
         <NewsButton
           onClick={() => {
             setContent("news");
+            setAddNews(false);
+            setAddNotice(false);
           }}
           content={content}
           id="new_notice"
@@ -222,6 +226,8 @@ export default function NewNoticeAdmin() {
         <NoticeButton
           onClick={() => {
             setContent("notice");
+            setAddNews(false);
+            setAddNotice(false);
           }}
           content={content}
         >
@@ -316,13 +322,21 @@ export default function NewNoticeAdmin() {
               <FormEditor addNews={addNews} setAddNews={setAddNews} />
             </Editor>
           )
-        ) : (
+        ) : addNotice === false ? (
           <Notice>
             <NoticeTitle>NOTICE</NoticeTitle>
             <form onSubmit={handleSubmit}>
               <Search placeholder="검색" />
               <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             </form>
+            <ButtonContainer>
+              <Button value="add" onClick={handleAddNotice}>
+                추가
+              </Button>
+              <Button value="delete" onClick={handleDelete}>
+                삭제
+              </Button>
+            </ButtonContainer>
             <Line />
             <PaginationContainer>
               {posts.content.map((ele) => (
@@ -381,6 +395,11 @@ export default function NewNoticeAdmin() {
               />
             </footer>
           </Notice>
+        ) : (
+          <Editor>
+            {/* <LoadableEditor /> */}
+            <FormEditor addContents={addNotice} setAddContents={setAddNotice} />
+          </Editor>
         )}
       </>
     </main>
