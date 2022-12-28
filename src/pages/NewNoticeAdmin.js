@@ -11,6 +11,7 @@ const page1 = {
 };
 
 export default function NewNoticeAdmin() {
+  const navigate = useNavigate();
   const [curContent, setCurContent] = useState("news");
   const [posts, setPosts] = useState(page1);
   const [page, setPage] = useState(1);
@@ -61,7 +62,7 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
     setTimeout(() => {
-      window.location.replace("/NewNoticeAdmin");
+      navigate("/NewNoticeAdmin");
     }, 100);
   };
   const getNewNotice = async (content) => {

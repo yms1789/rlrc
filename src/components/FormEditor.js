@@ -16,7 +16,7 @@ function FormEditor(props) {
     event.preventDefault();
     if (title === "" || content === "") {
       alert("제목과 내용을 입력해주세요");
-      window.location.reload();
+      navigate("/NewNoticeAdmin");
     }
     const formData = new FormData();
     formData.append("title", title);
