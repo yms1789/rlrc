@@ -5,7 +5,7 @@ import styles from "../styles/newNotice.module.css";
 import axios from "axios";
 import SearchIcon from "../static/search.png";
 import FormEditor from "../components/FormEditor";
-
+import { useNavigate } from "react-router-dom";
 const page1 = {
   content: [],
 };
@@ -25,7 +25,7 @@ export default function NewNoticeAdmin() {
     event.preventDefault();
     try {
       const response = await axios.get(
-        `/${curContent}/search/title?word=${searchText}`
+        `/${curContent}/search/title?word=${encodeURIComponent(searchText)}`
       );
       setPosts(response.data);
     } catch (error) {
@@ -61,7 +61,7 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
     setTimeout(() => {
-      window.location.reload();
+      window.location.replace("/NewNoticeAdmin");
     }, 100);
   };
   const getNewNotice = async (content) => {

@@ -28,7 +28,7 @@ export default function NewNotice() {
     event.preventDefault();
     try {
       const response = await axios.get(
-        `/${curContent}/search/title?word=${searchText}`
+        `/${curContent}/search/title?word=${encodeURIComponent(searchText)}`
       );
       setPosts(response.data);
     } catch (error) {
@@ -429,4 +429,13 @@ const Icon = styled.img`
   left: 1435px;
   width: 25px;
   height: 25px;
+`;
+const StyledLink = styled((props) => <Link {...props} />)`
+  &:hover {
+    color: #447bf7;
+  }
+  &:link {
+    color: white;
+  }
+  text-decoration: none;
 `;

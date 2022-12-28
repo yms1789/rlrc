@@ -97,7 +97,6 @@ function Card({ onClick, image, name }) {
     <div onClick={() => onClick(visibility)} style={{}} tabIndex={0}>
       <CardComponent>
         <Image src={image}></Image>
-        <ImageText>{name}</ImageText>
       </CardComponent>
     </div>
   );
@@ -109,8 +108,8 @@ const Container = styled.div`
 
 const Image = styled.img`
   position: relative; /* 핵심코드 */
-  width: 540px;
-  height: 200px;
+  width: 551px;
+  height: 246px;
   background-size: cover;
   padding-left: 30px;
   box-shadow: 4px -3px 5px grey;

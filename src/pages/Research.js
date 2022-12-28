@@ -92,7 +92,7 @@ export default function Research() {
           <div className={styles.selection_line_white} />
           <div className={styles.selection_line_grey} />
           <ul className={styles.selectionbar_menu}>
-            <Link
+            <StyledLink
               to="/AboutRLRC"
               id={styles.selectbar_content}
               className="select_rlrc"
@@ -101,8 +101,8 @@ export default function Research() {
               }}
             >
               ABOUT RLRC
-            </Link>
-            <Link
+            </StyledLink>
+            <StyledLink
               to="/Research"
               id={styles.selectbar_content}
               className="slelect_research"
@@ -111,8 +111,8 @@ export default function Research() {
               }}
             >
               RESEARCH
-            </Link>
-            <Link
+            </StyledLink>
+            <StyledLink
               to="/NewNotice"
               id={styles.selectbar_content}
               className="select_new_notice"
@@ -121,7 +121,7 @@ export default function Research() {
               }}
             >
               NEW & NOTICE
-            </Link>
+            </StyledLink>
           </ul>
         </div>
         <div className={styles.key_project}>
@@ -838,4 +838,13 @@ const TableRow = styled.tr`
 const TableData = styled.td`
   border-bottom: 1px solid #b4b4b4;
   border-right: none;
+`;
+const StyledLink = styled((props) => <Link {...props} />)`
+  &:hover {
+    color: #447bf7;
+  }
+  &:link {
+    color: white;
+  }
+  text-decoration: none;
 `;

@@ -34,7 +34,7 @@ function FormEditor(props) {
           },
         }
       );
-      window.location.reload();
+      window.location.replace("/NewNoticeAdmin");
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");
