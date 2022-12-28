@@ -60,7 +60,7 @@ export default function Research() {
   const getThesisPatentYear = async (content) => {
     try {
       const response = await axios.get(`/${content}/year`);
-      setYears(response.data);
+      setYears(response);
     } catch (error) {
       console.log(error);
     }
@@ -68,7 +68,7 @@ export default function Research() {
   const getThesisPatent = async (content) => {
     try {
       const response = await axios.get(`/${content}/search/all`);
-      setPosts(response.data);
+      setPosts(response);
     } catch (error) {
       console.log(error);
     }

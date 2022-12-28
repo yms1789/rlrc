@@ -35,7 +35,7 @@ function FormEditor(props) {
         }
       );
       alert("성공");
-      navigate(-1);
+      setAddContents(false);
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");

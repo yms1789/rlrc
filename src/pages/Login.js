@@ -15,7 +15,6 @@ function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    console.log(userId, password);
     if (loading) {
       return;
     }
@@ -32,7 +31,6 @@ function Login() {
         loginId: userId,
         password: password,
       });
-      console.log("response data: ", response.data.userType);
       alert("로그인 되었습니다.");
       setLoading(false);
       // dispatch(
