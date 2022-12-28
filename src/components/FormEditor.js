@@ -6,6 +6,7 @@ function FormEditor(props) {
   const navigate = useNavigate();
   const setAddContents = props.setAddContents;
   const addContents = props.addContents;
+  const currentContent = props.content;
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState([]);
   const input = useRef(null);
@@ -19,7 +20,7 @@ function FormEditor(props) {
     formData.append("content", content);
     try {
       const response = await axios.post(
-        `/admin/${addContents}/save`,
+        `/admin/${currentContent}/save`,
         formData,
         {
           headers: {
@@ -27,6 +28,7 @@ function FormEditor(props) {
           },
         }
       );
+      console.log(response);
       toAdminHome();
     } catch (error) {
       if (error.status === 400) {

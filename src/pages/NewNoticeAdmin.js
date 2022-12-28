@@ -319,7 +319,11 @@ export default function NewNoticeAdmin() {
           ) : (
             <Editor>
               {/* <LoadableEditor /> */}
-              <FormEditor addNews={addNews} setAddNews={setAddNews} />
+              <FormEditor
+                addNews={addNews}
+                setAddNews={setAddNews}
+                content="news"
+              />
             </Editor>
           )
         ) : addNotice === false ? (
@@ -398,7 +402,11 @@ export default function NewNoticeAdmin() {
         ) : (
           <Editor>
             {/* <LoadableEditor /> */}
-            <FormEditor addContents={addNotice} setAddContents={setAddNotice} />
+            <FormEditor
+              addContents={addNotice}
+              setAddContents={setAddNotice}
+              content="notice"
+            />
           </Editor>
         )}
       </>
