@@ -19,7 +19,7 @@ function Detail() {
     try {
       const response = await axios.get(`/${content}/${id}`);
       console.log(response);
-      setDetailData(response.data);
+      setDetailData(response);
     } catch (error) {
       console.log(error);
     }
