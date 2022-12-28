@@ -12,21 +12,15 @@ function FormEditor(props) {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData();
-    formData.append("attachFiles", selectedFile);
+    formData.append("title", title);
+    selectedFile.forEach((file) => formData.append("attachFiles", file));
+    formData.append("content", content);
     try {
-      const response = await axios.post(
-        "/admin/notice/save",
-        {
-          title,
-          formData,
-          content,
+      const response = await axios.post("/admin/notice/save", formData, {
+        headers: {
+          "Content-Type": "multipart/form-data",
         },
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      });
       console.log(response);
     } catch (error) {
       alert(error);
@@ -43,7 +37,7 @@ function FormEditor(props) {
     const fileNames = Array.from(event.target.files).map((ele) => ele.name);
     setSelectedFileName(fileNames);
     console.log(event.target.files);
-    setSelectedFile(event.target.files[0]);
+    setSelectedFile(event.target.files);
   };
   const toAdminHome = () => {
     setAddNews(false);
@@ -132,6 +126,7 @@ function FormEditor(props) {
                 style={{
                   display: "none",
                 }}
+                multiple
               ></input>
               <label
                 for="file"
