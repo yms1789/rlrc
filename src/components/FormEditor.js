@@ -55,7 +55,6 @@ function FormEditor(props) {
     setSelectedFile(Array.from(event.target.files));
   };
   const toAdminHome = () => {
-    console.log("setAddContents", setAddContents);
     setAddContents(false);
   };
 

@@ -3,8 +3,8 @@ import styled from "styled-components";
 import leftArrow from "../static/leftArrow.png";
 import righttArrow from "../static/rightArrow.png";
 function Pagination({ total, page, setPage }) {
-  const numPages = total;
-  const [currPage, setCurrPage] = useState(page);
+  const numPages = total || 1;
+  const [currPage, setCurrPage] = useState(page || 1);
   let firstNum = currPage - (currPage % 5) + 1;
   let lastNum = currPage - (currPage % 5) + 5;
   let totalPage = numPages < 5 ? numPages : 5;

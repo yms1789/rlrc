@@ -7,143 +7,13 @@ import SearchIcon from "../static/search.png";
 import FormEditor from "../components/FormEditor";
 
 const page1 = {
-  content: [
-    {
-      id: 8,
-      attachFile: null,
-      title: "8",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:32.530192",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 7,
-      attachFile: null,
-      title: "7",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:28.301017",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 6,
-      attachFile: null,
-      title: "6",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:24.861397",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 5,
-      attachFile: null,
-      title: "5",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:21.558377",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 4,
-      attachFile: null,
-      title: "4",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:17.429154",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 3,
-      attachFile: null,
-      title: "3",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:14.163898",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  pageable: {
-    sort: {
-      empty: false,
-      unsorted: false,
-      sorted: true,
-    },
-    offset: 0,
-    pageNumber: 0,
-    pageSize: 6,
-    paged: true,
-    unpaged: false,
-  },
-  totalPages: 2,
-  totalElements: 8,
-  last: false,
-  size: 6,
-  number: 0,
-  sort: {
-    empty: false,
-    unsorted: false,
-    sorted: true,
-  },
-  numberOfElements: 6,
-  first: true,
-  empty: false,
-};
-const page2 = {
-  content: [
-    {
-      id: 2,
-      attachFile: null,
-      title: "2",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:08.896565",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 1,
-      attachFile: null,
-      title: "1111",
-      content: "11111",
-      dateTime: "2022-12-23T16:09:39.27916",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  pageable: {
-    sort: {
-      empty: false,
-      unsorted: false,
-      sorted: true,
-    },
-    offset: 6,
-    pageNumber: 1,
-    pageSize: 6,
-    paged: true,
-    unpaged: false,
-  },
-  totalPages: 2,
-  totalElements: 8,
-  last: true,
-  size: 6,
-  number: 1,
-  sort: {
-    empty: false,
-    unsorted: false,
-    sorted: true,
-  },
-  numberOfElements: 2,
-  first: false,
-  empty: false,
+  content: [],
 };
 
 export default function NewNoticeAdmin() {
-  const [showContent, setShowContent] = useState(false);
-  const [loading, setLoading] = useState(false);
-  const [content, setContent] = useState("news");
+  const [curContent, setCurContent] = useState("news");
   const [posts, setPosts] = useState(page1);
   const [text, setText] = useState("");
-  const limit = 6;
   const [page, setPage] = useState(1);
   const [deleteContent, setDeleteContent] = useState(false);
   const [addNews, setAddNews] = useState(false);
@@ -154,11 +24,9 @@ export default function NewNoticeAdmin() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
       const response = await axios.get(`api/notice/search/title?word=${text}`);
       setPosts(response.data);
       alert("로그인 되었습니다.");
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -186,10 +54,8 @@ export default function NewNoticeAdmin() {
   const handleDeleteContent = async (id, content) => {
     console.log(id, content);
     try {
-      setLoading(true);
       const response = await axios.delete(`/admin/${content}/${id}`);
       setPosts(response.data);
-      setLoading(false);
     } catch (error) {
       console.log(error);
     }
@@ -197,46 +63,52 @@ export default function NewNoticeAdmin() {
       window.location.reload();
     }, 100);
   };
+  const getNewNotice = async (content) => {
+    try {
+      const response = await axios.get(`/${content}/search/all`);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     // 페이지 요청
-    const pageContent = page === 1 ? page1 : page2;
-    setPosts(pageContent);
-  }, [page]);
+    getNewNotice(curContent);
+  }, [curContent, page]);
   const handleChange = useCallback((e) => {
     setText(e.currentTarget.value);
   }, []);
   const handleSearch = useCallback((e) => {
     alert("asd");
   }, []);
-  console.log(addNews);
   return (
     <main className={styles.main}>
       <>
         <Title>NEWS & NOTICE</Title>
         <NewsButton
           onClick={() => {
-            setContent("news");
+            setCurContent("news");
             setAddNews(false);
             setAddNotice(false);
             setDeleteContent(false);
           }}
-          content={content}
+          content={curContent}
           id="new_notice"
         >
           NEWS
         </NewsButton>
         <NoticeButton
           onClick={() => {
-            setContent("notice");
+            setCurContent("notice");
             setAddNews(false);
             setAddNotice(false);
             setDeleteContent(false);
           }}
-          content={content}
+          content={curContent}
         >
           NOTICE
         </NoticeButton>
-        {content === "news" ? (
+        {curContent === "news" ? (
           addNews === false ? (
             <News>
               <NoticeTitle>NEWS</NoticeTitle>
@@ -254,80 +126,90 @@ export default function NewNoticeAdmin() {
               </ButtonContainer>
               <Line />
               <PaginationContainer>
-                {posts.content.map((ele) => (
-                  <PaginationElement
-                    key={ele.id}
-                    onMouseEnter={() => {
-                      handleEnter(ele.id);
-                    }}
-                    onMouseLeave={() => {
-                      handleLeave(ele.id);
-                    }}
-                  >
-                    {deleteContent && (
-                      <DeleteButton
-                        onClick={() => handleDeleteContent(ele.id, "news")}
+                {posts !== null ? (
+                  <>
+                    {posts.content.map((ele) => (
+                      <PaginationElement
+                        key={ele.id}
+                        onMouseEnter={() => {
+                          handleEnter(ele.id);
+                        }}
+                        onMouseLeave={() => {
+                          handleLeave(ele.id);
+                        }}
                       >
-                        X
-                      </DeleteButton>
-                    )}
-                    <h3
-                      style={{
-                        paddingLeft: "1.5em",
-                        paddingRight: "1.5em",
-                        marginBlockStart: 80,
-                        marginBlockEnd: 0,
-                        color: "#447bf7",
-                      }}
-                    >
-                      {ele.title}
-                    </h3>
-                    <p
-                      style={{
-                        paddingLeft: "1.7em",
-                        paddingRight: "1.5em",
-                      }}
-                    >
-                      {ele.content}
-                    </p>
-                    {showButton[posts.content.length - ele.id] === true ? (
-                      !deleteContent && (
-                        <DetailButton
-                          onClick={() => {
-                            handleClick(ele.id);
+                        {deleteContent && (
+                          <DeleteButton
+                            onClick={() => handleDeleteContent(ele.id, "news")}
+                          >
+                            X
+                          </DeleteButton>
+                        )}
+                        <h3
+                          style={{
+                            paddingLeft: "1.5em",
+                            paddingRight: "1.5em",
+                            marginBlockStart: 80,
+                            marginBlockEnd: 0,
+                            color: "#447bf7",
                           }}
                         >
-                          <p
-                            style={{
-                              color: "white",
-                              fontSize: "20px",
-                              fontWeight: "bold",
-                            }}
-                          >
-                            +
-                          </p>
-                        </DetailButton>
-                      )
-                    ) : (
-                      <></>
-                    )}
-                  </PaginationElement>
-                ))}
+                          {ele.title}
+                        </h3>
+                        <p
+                          style={{
+                            paddingLeft: "1.7em",
+                            paddingRight: "1.5em",
+                          }}
+                        >
+                          {ele.content}
+                        </p>
+                        {showButton[posts.content.length - ele.id] === true ? (
+                          !deleteContent && (
+                            <DetailButton
+                              onClick={() => {
+                                handleClick(ele.id);
+                              }}
+                            >
+                              <p
+                                style={{
+                                  color: "white",
+                                  fontSize: "20px",
+                                  fontWeight: "bold",
+                                }}
+                              >
+                                +
+                              </p>
+                            </DetailButton>
+                          )
+                        ) : (
+                          <></>
+                        )}
+                      </PaginationElement>
+                    ))}
+                  </>
+                ) : (
+                  <></>
+                )}
               </PaginationContainer>
-              <footer
-                style={{
-                  position: "relative",
-                  right: "50px",
-                  top: "2280px",
-                }}
-              >
-                <Pagination
-                  total={posts.totalPages}
-                  page={page}
-                  setPage={setPage}
-                  pageSize={posts.size}
-                />
-              </footer>
+              {posts !== null ? (
+                <footer
+                  style={{
+                    position: "relative",
+                    right: "50px",
+                    top: "2280px",
+                  }}
+                >
+                  <Pagination
+                    total={posts.totalPages}
+                    page={page}
+                    setPage={setPage}
+                    pageSize={posts.size}
+                  />
+                </footer>
+              ) : (
+                <></>
+              )}
             </News>
           ) : (
             <Editor>
@@ -355,80 +237,92 @@ export default function NewNoticeAdmin() {
             </ButtonContainer>
             <Line />
             <PaginationContainer>
-              {posts.content.map((ele) => (
-                <PaginationElement
-                  key={ele.id}
-                  onMouseEnter={() => {
-                    handleEnter(ele.id);
-                  }}
-                  onMouseLeave={() => {
-                    handleLeave(ele.id);
-                  }}
-                >
-                  {deleteContent && (
-                    <DeleteButton
-                      onClick={() => handleDeleteContent(ele.id, "notice")}
+              {posts !== null ? (
+                <>
+                  {posts.content.map((ele) => (
+                    <PaginationElement
+                      key={ele.id}
+                      onMouseEnter={() => {
+                        handleEnter(ele.id);
+                      }}
+                      onMouseLeave={() => {
+                        handleLeave(ele.id);
+                      }}
                     >
-                      X
-                    </DeleteButton>
-                  )}
-                  <h3
-                    style={{
-                      paddingLeft: "1.5em",
-                      paddingRight: "1.5em",
-                      marginBlockStart: 80,
-                      marginBlockEnd: 0,
-                      color: "#447bf7",
-                    }}
-                  >
-                    {ele.title}
-                  </h3>
-                  <p
-                    style={{
-                      paddingLeft: "1.7em",
-                      paddingRight: "1.5em",
-                    }}
-                  >
-                    {ele.content}
-                  </p>
-                  {showButton[posts.content.length - ele.id] === true ? (
-                    !deleteContent && (
-                      <DetailButton
-                        onClick={() => {
-                          handleClick(ele.id);
+                      {deleteContent && (
+                        <DeleteButton
+                          onClick={() => handleDeleteContent(ele.id, "notice")}
+                        >
+                          X
+                        </DeleteButton>
+                      )}
+                      <h3
+                        style={{
+                          paddingLeft: "1.5em",
+                          paddingRight: "1.5em",
+                          marginBlockStart: 80,
+                          marginBlockEnd: 0,
+                          color: "#447bf7",
                         }}
                       >
-                        <p
-                          style={{
-                            color: "white",
-                            fontSize: "20px",
-                            fontWeight: "bold",
-                          }}
-                        >
-                          +
-                        </p>
-                      </DetailButton>
-                    )
-                  ) : (
-                    <></>
-                  )}
-                </PaginationElement>
-              ))}
+                        {ele.title}
+                      </h3>
+                      <p
+                        style={{
+                          paddingLeft: "1.7em",
+                          paddingRight: "1.5em",
+                        }}
+                      >
+                        {ele.content}
+                      </p>
+                      {showButton[posts.content.length - ele.id] === true ? (
+                        !deleteContent && (
+                          <DetailButton
+                            onClick={() => {
+                              handleClick(ele.id);
+                            }}
+                          >
+                            <p
+                              style={{
+                                color: "white",
+                                fontSize: "20px",
+                                fontWeight: "bold",
+                              }}
+                            >
+                              +
+                            </p>
+                          </DetailButton>
+                        )
+                      ) : (
+                        <></>
+                      )}
+                    </PaginationElement>
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
             </PaginationContainer>
-            <footer
-              style={{
-                position: "relative",
-                right: "50px",
-                top: "2280px",
-              }}
-            >
-              <Pagination
-                total={posts.totalPages}
-                page={page}
-                setPage={setPage}
-                pageSize={posts.size}
-              />
-            </footer>
+            {posts !== null ? (
+              <>
+                <footer
+                  style={{
+                    position: "relative",
+                    right: "50px",
+                    top: "2280px",
+                  }}
+                >
+                  <Pagination
+                    total={posts.totalPages}
+                    page={page}
+                    setPage={setPage}
+                    pageSize={posts.size}
+                  />
+                </footer>
+              </>
+            ) : (
+              <></>
+            )}
           </Notice>
         ) : (
           <Editor>

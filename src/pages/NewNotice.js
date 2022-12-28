@@ -5,144 +5,18 @@ import ContentIndex from "../components/ContentIndex";
 import Navbar from "../components/Navbar";
 import Pagination from "../components/Pagination";
 import styles from "../styles/newNotice.module.css";
+import axios from "axios";
 
 import SearchIcon from "../static/search.png";
 import styled from "styled-components";
 
 const page1 = {
-  content: [
-    {
-      id: 8,
-      attachFile: null,
-      title: "8",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:32.530192",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 7,
-      attachFile: null,
-      title: "7",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:28.301017",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 6,
-      attachFile: null,
-      title: "6",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:24.861397",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 5,
-      attachFile: null,
-      title: "5",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:21.558377",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 4,
-      attachFile: null,
-      title: "4",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:17.429154",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 3,
-      attachFile: null,
-      title: "3",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:14.163898",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  pageable: {
-    sort: {
-      empty: false,
-      unsorted: false,
-      sorted: true,
-    },
-    offset: 0,
-    pageNumber: 0,
-    pageSize: 6,
-    paged: true,
-    unpaged: false,
-  },
-  totalPages: 2,
-  totalElements: 8,
-  last: false,
-  size: 6,
-  number: 0,
-  sort: {
-    empty: false,
-    unsorted: false,
-    sorted: true,
-  },
-  numberOfElements: 6,
-  first: true,
-  empty: false,
-};
-const page2 = {
-  content: [
-    {
-      id: 2,
-      attachFile: null,
-      title: "2",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:08.896565",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-    {
-      id: 1,
-      attachFile: null,
-      title: "1111",
-      content: "11111",
-      dateTime: "2022-12-23T16:09:39.27916",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  pageable: {
-    sort: {
-      empty: false,
-      unsorted: false,
-      sorted: true,
-    },
-    offset: 6,
-    pageNumber: 1,
-    pageSize: 6,
-    paged: true,
-    unpaged: false,
-  },
-  totalPages: 2,
-  totalElements: 8,
-  last: true,
-  size: 6,
-  number: 1,
-  sort: {
-    empty: false,
-    unsorted: false,
-    sorted: true,
-  },
-  numberOfElements: 2,
-  first: false,
-  empty: false,
+  content: [],
 };
 
 export default function NewNotice() {
   const [showContent, setShowContent] = useState(false);
-  const [content, setContent] = useState("news");
+  const [curContent, setCurContent] = useState("news");
   const [posts, setPosts] = useState(page1);
   const [page, setPage] = useState(1);
   const navigate = useNavigate();
@@ -154,7 +28,7 @@ export default function NewNotice() {
     alert(``);
   };
   const handleClick = (id) => {
-    navigate("/Detail", { state: [id, content] });
+    navigate("/Detail", { state: [id, curContent] });
   };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);
@@ -164,11 +38,18 @@ export default function NewNotice() {
   const handleLeave = (id) => {
     setShowButton(Array(posts.numberOfElements).fill(false));
   };
+  const getNewNotice = async (content) => {
+    try {
+      const response = await axios.get(`/${content}/search/all`);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     // 페이지 요청
-    const pageContent = page === 1 ? page1 : page2;
-    setPosts(pageContent);
-  }, [page]);
+    getNewNotice(curContent);
+  }, [curContent, page]);
 
   return (
     <main className={styles.main}>
@@ -217,22 +98,22 @@ export default function NewNotice() {
         <Title>NEWS & NOTICE</Title>
         <NewsButton
           onClick={() => {
-            setContent("news");
+            setCurContent("news");
           }}
-          content={content}
+          content={curContent}
           id="new_notice"
         >
           NEWS
         </NewsButton>
         <NoticeButton
           onClick={() => {
-            setContent("notice");
+            setCurContent("notice");
           }}
-          content={content}
+          content={curContent}
         >
           NOTICE
         </NoticeButton>
-        {content === "news" ? (
+        {curContent === "news" ? (
           <News>
             <NoticeTitle>NEWS</NoticeTitle>
             <form onSubmit={handleSubmit}>
@@ -243,69 +124,79 @@ export default function NewNotice() {
             </form>
             <Line />
             <PaginationContainer>
-              {posts.content.map((ele) => (
-                <PaginationElement
-                  key={ele.id}
-                  onMouseEnter={() => {
-                    handleEnter(ele.id);
-                  }}
-                  onMouseLeave={() => {
-                    handleLeave(ele.id);
-                  }}
-                >
-                  <h3
-                    style={{
-                      paddingLeft: "1.5em",
-                      paddingRight: "1.5em",
-                      marginBlockStart: 80,
-                      marginBlockEnd: 0,
-                      color: "#447bf7",
-                    }}
-                  >
-                    {ele.title}
-                  </h3>
-                  <p
-                    style={{
-                      paddingLeft: "1.7em",
-                      paddingRight: "1.5em",
-                    }}
-                  >
-                    {ele.content}
-                  </p>
-                  {showButton[posts.content.length - ele.id] && (
-                    <DetailButton
-                      onClick={() => {
-                        handleClick(ele.id);
+              {posts !== null ? (
+                <>
+                  {posts.content.map((ele) => (
+                    <PaginationElement
+                      key={ele.id}
+                      onMouseEnter={() => {
+                        handleEnter(ele.id);
+                      }}
+                      onMouseLeave={() => {
+                        handleLeave(ele.id);
                       }}
                     >
-                      <p
+                      <h3
                         style={{
-                          color: "white",
-                          fontSize: "20px",
-                          fontWeight: "bold",
+                          paddingLeft: "1.5em",
+                          paddingRight: "1.5em",
+                          marginBlockStart: 80,
+                          marginBlockEnd: 0,
+                          color: "#447bf7",
                         }}
                       >
-                        +
+                        {ele.title}
+                      </h3>
+                      <p
+                        style={{
+                          paddingLeft: "1.7em",
+                          paddingRight: "1.5em",
+                        }}
+                      >
+                        {ele.content}
                       </p>
-                    </DetailButton>
-                  )}
-                </PaginationElement>
-              ))}
+                      {showButton[posts.content.length - ele.id] && (
+                        <DetailButton
+                          onClick={() => {
+                            handleClick(ele.id);
+                          }}
+                        >
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            +
+                          </p>
+                        </DetailButton>
+                      )}
+                    </PaginationElement>
+                  ))}
+                </>
+              ) : (
+                <></>
+              )}
             </PaginationContainer>
-            <footer
-              style={{
-                position: "relative",
-                right: "50px",
-                top: "2080px",
-              }}
-            >
-              <Pagination
-                total={posts.totalPages}
-                page={page}
-                setPage={setPage}
-                pageSize={posts.size}
-              />
-            </footer>
+            {posts !== null ? (
+              <footer
+                style={{
+                  position: "relative",
+                  right: "50px",
+                  top: "2080px",
+                }}
+              >
+                <Pagination
+                  total={posts.totalPages}
+                  page={page}
+                  setPage={setPage}
+                  pageSize={posts.size}
+                />
+              </footer>
+            ) : (
+              <></>
+            )}
           </News>
         ) : (
           <Notice>

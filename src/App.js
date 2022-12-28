@@ -21,9 +21,7 @@ function App() {
               <AboutRLRC />
             </Layout>
           }
-        >
-          ABOUT RLRC
-        </Route>
+        ></Route>
         <Route
           path="/AboutRLRC"
           style={{ textDecoration: "none" }}
@@ -32,9 +30,7 @@ function App() {
               <AboutRLRC />
             </Layout>
           }
-        >
-          ABOUT RLRC
-        </Route>
+        ></Route>
         <Route
           className="rearch"
           path="/Research"
@@ -44,17 +40,13 @@ function App() {
               <Research />
             </Layout>
           }
-        >
-          RESEARCH
-        </Route>
+        ></Route>
         <Route
           className="rearchField"
           path="/ResearchField"
           style={{ textDecoration: "none" }}
           element={<ResearchField />}
-        >
-          RESEARCH
-        </Route>
+        ></Route>
         <Route
           className="newNotice"
           path="/NewNotice"
@@ -64,33 +56,25 @@ function App() {
               <NewNotice />
             </Layout>
           }
-        >
-          NEW & NOTICE
-        </Route>
+        ></Route>
         <Route
           className="newNoticeAdmin"
           path="/NewNoticeAdmin"
           style={{ textDecoration: "none" }}
           element={<NewNoticeAdmin />}
-        >
-          NEW & NOTICE
-        </Route>
+        ></Route>
         <Route
           className="Login"
           path="/Login"
           style={{ textDecoration: "none" }}
           element={<Login />}
-        >
-          NEW & NOTICE
-        </Route>
+        ></Route>
         <Route
           className="Detail"
           path="/Detail"
           style={{ textDecoration: "none" }}
           element={<Detail />}
-        >
-          NEW & NOTICE
-        </Route>
+        ></Route>
       </Routes>
     </div>
   );

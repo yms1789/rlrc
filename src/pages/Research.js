@@ -67,7 +67,7 @@ export default function Research() {
   };
   const getThesisPatent = async (content) => {
     try {
-      const response = await axios.get(`/${content}/Search/all`);
+      const response = await axios.get(`/${content}/search/all`);
       setPosts(response.data);
     } catch (error) {
       console.log(error);
