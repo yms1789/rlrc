@@ -138,20 +138,6 @@ function ContentIndex(props) {
                 setShow(false);
               }}
             >
-              홍보물
-            </StyledLink>
-          </TableData>
-        </tr>
-        <tr>
-          <TableData>
-            <StyledLink
-              to="연구그룹"
-              spy={true}
-              smooth={true}
-              onSetActive={() => {
-                setShow(false);
-              }}
-            >
               협력기관
             </StyledLink>
           </TableData>

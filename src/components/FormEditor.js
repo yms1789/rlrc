@@ -36,8 +36,7 @@ function FormEditor(props) {
   const handleFileSelect = (event) => {
     const fileNames = Array.from(event.target.files).map((ele) => ele.name);
     setSelectedFileName(fileNames);
-    console.log(event.target.files);
-    setSelectedFile(event.target.files);
+    setSelectedFile(Array.from(event.target.files));
   };
   const toAdminHome = () => {
     setAddNews(false);
@@ -53,62 +52,62 @@ function FormEditor(props) {
           right: "5em",
         }}
       >
-        <tr>
-          <td
-            style={{
-              width: "160px",
-              height: "84px",
-              background: "#D5D5D5 0% 0% no-repeat padding-box",
-              opacity: 1,
-              borderTopWidth: "3px",
-              borderTopColor: "#447BF7",
-              borderTopStyle: "solid",
-            }}
-          >
-            <RowTitle>제목</RowTitle>
-          </td>
-          <div
-            style={{
-              display: "flex",
-              width: "1078px",
-              height: "84px",
-              background: "#F4F4F4 0% 0% no-repeat padding-box",
-              opacity: 1,
-              justifyContent: "center",
-              alignItems: "center",
-              borderTopWidth: "3px",
-              borderTopColor: "#447BF7",
-              borderTopStyle: "solid",
-            }}
-          >
-            <input
+        <tbody>
+          <tr>
+            <td
               style={{
-                width: "996px",
-                height: "47px",
-                background: "#FFFFFF 0% 0% no-repeat padding-box",
-                border: "0.4000000059604645px solid",
-                borderColor: "rgb(112 112 112 / 27%)",
+                width: "160px",
+                height: "84px",
+                background: "#D5D5D5 0% 0% no-repeat padding-box",
+                opacity: 1,
+                borderTopWidth: "3px",
+                borderTopColor: "#447BF7",
+                borderTopStyle: "solid",
+              }}
+            >
+              <RowTitle>제목</RowTitle>
+            </td>
+            <td
+              style={{
+                display: "flex",
+                width: "1078px",
+                height: "84px",
+                background: "#F4F4F4 0% 0% no-repeat padding-box",
+                opacity: 1,
+                justifyContent: "center",
+                alignItems: "center",
+                borderTopWidth: "3px",
+                borderTopColor: "#447BF7",
+                borderTopStyle: "solid",
+              }}
+            >
+              <input
+                style={{
+                  width: "996px",
+                  height: "47px",
+                  background: "#FFFFFF 0% 0% no-repeat padding-box",
+                  border: "0.4000000059604645px solid",
+                  borderColor: "rgb(112 112 112 / 27%)",
+                  opacity: 1,
+                }}
+                type="text"
+                value={title}
+                onChange={handleTitleChange}
+              />
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                width: "160px",
+                height: "84px",
+                background: "#D5D5D5 0% 0% no-repeat padding-box",
                 opacity: 1,
               }}
-              type="text"
-              value={title}
-              onChange={handleTitleChange}
-            />
-          </div>
-        </tr>
-        <tr>
-          <td
-            style={{
-              width: "160px",
-              height: "84px",
-              background: "#D5D5D5 0% 0% no-repeat padding-box",
-              opacity: 1,
-            }}
-          >
-            <RowTitle>첨부파일</RowTitle>
-          </td>
-          <td>
-            <div
+            >
+              <RowTitle>첨부파일</RowTitle>
+            </td>
+            <td
               style={{
                 display: "flex",
                 width: "1078px",
@@ -129,7 +128,7 @@ function FormEditor(props) {
                 multiple
               ></input>
               <label
-                for="file"
+                htmlFor="file"
                 style={{
                   display: "inline-block",
                   padding: "0px 20px",
@@ -160,7 +159,7 @@ function FormEditor(props) {
                 </span>
               </label>
               <input
-                class="upload-name"
+                className="upload-name"
                 placeholder={selectedFileName}
                 style={{
                   position: "relative",
@@ -174,22 +173,20 @@ function FormEditor(props) {
                 }}
                 readOnly
               ></input>
-            </div>
-          </td>
-        </tr>
-        <tr>
-          <td
-            style={{
-              width: "160px",
-              height: "633px",
-              background: "#D5D5D5 0% 0% no-repeat padding-box",
-              opacity: "1",
-            }}
-          >
-            <RowTitle>내용</RowTitle>
-          </td>
-          <td>
-            <div
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                width: "160px",
+                height: "633px",
+                background: "#D5D5D5 0% 0% no-repeat padding-box",
+                opacity: "1",
+              }}
+            >
+              <RowTitle>내용</RowTitle>
+            </td>
+            <td
               style={{
                 display: "flex",
                 width: "1078px",
@@ -212,9 +209,9 @@ function FormEditor(props) {
                 }}
                 onChange={handleContentChange}
               ></textarea>
-            </div>
-          </td>
-        </tr>
+            </td>
+          </tr>
+        </tbody>
       </table>
       <div
         style={{
