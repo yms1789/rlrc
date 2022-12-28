@@ -1,23 +1,225 @@
 import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
+import { Link, useNavigate } from "react-router-dom";
+import ContentBar from "../components/ContentBar";
+import ContentIndex from "../components/ContentIndex";
+import Navbar from "../components/Navbar";
+import styles from "../styles/newNotice.module.css";
+import styled from "styled-components";
+
 function Detail() {
   const { state } = useLocation();
+  const navigate = useNavigate();
   const [detailData, setDetailData] = useState(null);
-
-  const getDetailData = async (state) => {
+  const [showContent, setShowContent] = useState(false);
+  const id = state[0];
+  const content = state[1];
+  const getDetailData = async (content, id) => {
     try {
-      const response = await axios.get(`/detail/${state}`);
+      const response = await axios.get(`/${content}/${id}`);
       setDetailData(response.data);
     } catch (error) {
       console.log(error);
     }
   };
-  useEffect(() => {
-    getDetailData(state);
-  }, [state]);
+  // useEffect(() => {
+  //   getDetailData(content, id);
+  // }, [content, id, state]);
 
-  return <div>{detailData}</div>;
+  return (
+    <main className={styles.main}>
+      <Navbar />
+      <ContentBar setShow={setShowContent} />
+      {showContent && (
+        <ContentIndex setShow={setShowContent} isShow={showContent} />
+      )}
+      <div className={styles.selectionbar}>
+        <div className={styles.selection_line_white} />
+        <div className={styles.selection_line_grey} />
+        <ul className={styles.selectionbar_menu}>
+          <Link
+            to="/"
+            id={styles.selectbar_content}
+            className="select_rlrc"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            ABOUT RLRC
+          </Link>
+          <Link
+            to="/Research"
+            id={styles.selectbar_content}
+            className="slelect_research"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            RESEARCH
+          </Link>
+          <Link
+            to="/NewNotice"
+            id={styles.selectbar_content}
+            className="select_new_notice"
+            style={{
+              textDecoration: "none",
+            }}
+          >
+            NEW & NOTICE
+          </Link>
+        </ul>
+      </div>
+      <Title>NEWS & NOTICE</Title>
+      <NewsButton
+        onClick={() => {
+          navigate("/NewNotice");
+        }}
+        content={content}
+        id="new_notice"
+      >
+        NEWS
+      </NewsButton>
+      <NoticeButton
+        onClick={() => {
+          navigate("/NewNotice");
+        }}
+        content={content}
+      >
+        NOTICE
+      </NoticeButton>
+      <DetailContainer>
+        <DetailTitle>
+          <TitleText>
+            박주현 영남대 교수, 세계 상위 1% 연구자 8년 연속 선정
+          </TitleText>
+          {/* {DetailData.title} */}
+        </DetailTitle>
+        <DetailProperties>
+          <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
+          <span style={{ fontSize: "18px" }}>2022-12-22</span>
+        </DetailProperties>
+        <DetailProperties>
+          <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>첨부파일</h3>
+        </DetailProperties>
+        <DetailContent></DetailContent>
+      </DetailContainer>
+    </main>
+  );
 }
 
+const Title = styled.p`
+  position: absolute;
+  top: 683px;
+  left: 265px;
+  width: 592px;
+  height: 94px;
+  font: var(--unnamed-font-style-normal) normal bold 80px/70px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal bold 80px/70px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  text-transform: uppercase;
+  opacity: 1;
+`;
+const NewsButton = styled.button`
+  position: absolute;
+  top: 1080px;
+  left: 0px;
+  width: 960px;
+  height: 186px;
+  background: 0% 0% no-repeat padding-box;
+  background-color: ${(props) =>
+    props.content === "news" ? "#ffffff" : "#447bfb"};
+  opacity: 1;
+
+  font: var(--unnamed-font-style-normal) normal bold 33px/70px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal bold 33px/70px Roboto;
+  letter-spacing: 0px;
+  color: ${(props) => (props.content === "news" ? "#447bfb" : "#ffffff")};
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  border-style: none;
+`;
+const NoticeButton = styled.button`
+  position: absolute;
+  top: 1080px;
+  left: 960px;
+  width: 960px;
+  height: 186px;
+  background: 0% 0% no-repeat padding-box;
+  background-color: ${(props) =>
+    props.content === "news" ? "#447bfb" : "#ffffff"};
+  opacity: 1;
+
+  font: var(--unnamed-font-style-normal) normal bold 33px/70px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal bold 33px/70px Roboto;
+  letter-spacing: 0px;
+  color: ${(props) => (props.content === "notice" ? "#447bfb" : "#ffffff")};
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  border-style: none;
+`;
+const DetailContainer = styled.div`
+  position: absolute;
+  top: 1540px;
+  height: 1800px;
+  width: 1246px;
+  left: 338px;
+`;
+const DetailTitle = styled.div`
+  display: flex;
+  width: 1246px;
+  height: 84px;
+  background: #f4f4f4 0% 0% no-repeat padding-box;
+  opacity: 1;
+  font: var(--unnamed-font-style-normal) normal bold 20px /
+    var(--unnamed-line-spacing-28) var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  vertical-align: center;
+  justify-content: flex-start;
+  align-items: center;
+  font: normal normal bold 20px/28px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+`;
+const TitleText = styled.p`
+  position: relative;
+  left: 45px;
+`;
+const DetailProperties = styled.div`
+  height: 53px;
+  background-color: white;
+  border-bottom: 1px solid #b4b4b4;
+  opacity: 1;
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  font: var(--unnamed-font-style-normal) normal medium 20px/30px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal medium 20px/30px Roboto;
+  letter-spacing: 0px;
+  color: #535353;
+  opacity: 1;
+`;
+const DetailContent = styled.div`
+  height: 1572px;
+  width: 1246px;
+  /* background-color: lightblue; */
+  border-bottom: 1px solid #b4b4b4;
+  opacity: 1;
+`;
 export default Detail;

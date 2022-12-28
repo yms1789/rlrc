@@ -7,7 +7,6 @@ import Pagination from "../components/Pagination";
 import styles from "../styles/newNotice.module.css";
 
 import SearchIcon from "../static/search.png";
-import downArrow from "../static/downArrow.png";
 import styled from "styled-components";
 
 const page1 = {
@@ -155,7 +154,7 @@ export default function NewNotice() {
     alert(``);
   };
   const handleClick = (id) => {
-    navigate("/Detail", { state: id });
+    navigate("/Detail", { state: [id, content] });
   };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);
@@ -279,7 +278,15 @@ export default function NewNotice() {
                         handleClick(ele.id);
                       }}
                     >
-                      +
+                      <p
+                        style={{
+                          color: "white",
+                          fontSize: "20px",
+                          fontWeight: "bold",
+                        }}
+                      >
+                        +
+                      </p>
                     </DetailButton>
                   )}
                 </PaginationElement>
@@ -339,6 +346,14 @@ export default function NewNotice() {
                     }}
                   >
                     {ele.content}
+                  </p>
+                  <p
+                    style={{
+                      paddingLeft: "1.7em",
+                      paddingRight: "1.5em",
+                    }}
+                  >
+                    {ele.dateTime}
                   </p>
                   {showButton[posts.content.length - ele.id] && (
                     <DetailButton
@@ -466,34 +481,6 @@ const Search = styled.input`
   padding-left: 20px;
 `;
 
-const Sort = styled.select`
-  position: absolute;
-  top: 1415px;
-  left: 1330px;
-  width: 288px;
-  height: 46px;
-  background: url(${downArrow}) #d3d3d35c no-repeat 97% 50%/25px auto;
-  opacity: 1;
-  border: none;
-  padding: 10px;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  ::-ms-expand {
-    display: none;
-  }
-  color: #171717;
-`;
-const Option = styled.option`
-  font: var(--unnamed-font-style-normal) normal
-    var(--unnamed-font-weight-normal) var(--unnamed-font-size-16) / 30px
-    var(--unnamed-font-family-roboto);
-  letter-spacing: var(--unnamed-character-spacing-0);
-  text-align: left;
-  font: normal normal normal 16px/30px Roboto;
-  letter-spacing: 0px;
-  color: #171717;
-  opacity: 0.7;
-`;
 const Line = styled.span`
   position: absolute;
   top: 1530px;

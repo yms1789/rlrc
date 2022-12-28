@@ -6,7 +6,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 import prevArrow from "../static/prevArrow.png";
 import nextArrow from "../static/nextArrow.png";
-import logo from "../static/images/parkjuhyun1.png";
+import kangseokwon1 from "../static/images/kangseokwon1.png";
 const PreviousBtn = (props) => {
   const { className, onClick, currentSlide } = props;
   return (
@@ -69,22 +69,112 @@ function KangSeokWon() {
         }}
       >
         <Content>
-          <Image src={logo}></Image>
-          <SmallTitle>Vehicular Platooning</SmallTitle>
-          <List>
-            <ListContent>Leader-followers consensus problem. </ListContent>
+          <SmallTitleNonImage style={{ top: "120px" }}>
+            Research Target
+          </SmallTitleNonImage>
+          <ListNonImage style={{ top: "125px", listStyle: "none" }}>
             <ListContent>
-              Neuroadaptive fault-tolerant control, (IEEETr.
-              IntelligentTransport. Sys., Accepted, 2021).{" "}
+              Currently, autonomous vehicles are not sufficiently capable of
+              performing safe steering maneuvers or coping with emergency
+              situations under all types of road and vehicle conditions. Thus,
+              the main objective of this study is to develop an adaptive control
+              system with fail-safe electric power steering (EPS) and artificial
+              intelligence (AI)-based lateral/longitudinal adaptive control
+              capabilities for autonomous vehicles.
             </ListContent>
-            <ListContent>
-              SMC control for spacing constraints and unknown direction faults,
-              <br />
-              Automatica, Vol. 129, 2021.
-            </ListContent>
-          </List>
+          </ListNonImage>
         </Content>
-        <Content>3asdasdasdad</Content>
+        <Content>
+          <SmallTitleNonImage style={{ top: "100px" }}>
+            Novelty and Difficulty of Technical Approach
+          </SmallTitleNonImage>
+          <ListNonImage
+            style={{ top: "105px", width: "1000px", listStyle: "none" }}
+          >
+            <ListContent>
+              This study requires the development of technologies in both H/W
+              and S/W respects for improved safety and efficiency at an actual
+              product level. Most importantly, it is challenging to mechanically
+              design an EPS structure configured in parallel for equal
+              distribution of required torque while simultaneously implementing
+              a control algorithm to ensure the total steering angle internally.
+              Furthermore, to improve reliability when implementing AI
+              technology-based adaptive control algorithms, it is necessary to
+              secure a considerable amount of test data; hence, collaboration
+              with related organizations is vital.
+            </ListContent>
+          </ListNonImage>
+        </Content>
+        <Content>
+          <SmallTitleNonImage style={{ top: "80px" }}>
+            Research Progress
+          </SmallTitleNonImage>
+          <ListNonImage
+            style={{ top: "85px", width: "1000px", listStyle: "none" }}
+          >
+            <ListContent>
+              The experimental apparatus for validation of the designed control
+              algorithm for the fail-safe steering device has been developed.
+              The steering wheel position and torque can be measured based on
+              the position control of the EPS system by considering the load
+              conditions generated during driving. A lab-scale experiment has
+              confirmed that continuous safe steering is possible even if a
+              malfunction occurs in the one of two electric power steering (EPS)
+              motors during operation in parallel. Currently, we are building a
+              hardware-in-the-loop simulation (HILS) system combined with the
+              CarMakerTM software program for vehicle dynamics simulation; this
+              will enable us to analyze the reliability and safety of the
+              developed algorithm in actual driving environments.
+            </ListContent>
+          </ListNonImage>
+        </Content>
+        <Content>
+          <SmallTitleNonImage style={{ top: "100px" }}>
+            Research Plan
+          </SmallTitleNonImage>
+          <ListNonImage
+            style={{ top: "105px", width: "1000px", listStyle: "none" }}
+          >
+            <ListContent>
+              Stage 1 (Year 1 – 4): Design of a fail-safe control algorithm for
+              an EPS for autonomous vehicles
+              <br /> - 1st year: Concept design of fail-safe structure for an
+              EPS <br />- 2nd year: Implementation of a small demonstration
+              system for testing of control algorithms
+              <br /> - 3rd year: Test-bed setup for validation of the fail-safe
+              design <br /> - 4th year: Performance evaluation and design
+              improvement through lab-scale experiments
+            </ListContent>
+          </ListNonImage>
+        </Content>
+        <Content>
+          <SmallTitleNonImage style={{ top: "110px" }}>
+            Research Plan
+          </SmallTitleNonImage>
+          <ListNonImage
+            style={{ top: "115px", width: "1000px", listStyle: "none" }}
+          >
+            <ListContent>
+              Stage 2(Year 5 – 7): Development of AI-based lateral/longitudinal
+              adaptive control technology <br /> - 5th year: Algorithm design
+              for adaptive maneuver control and setup of simulation environment{" "}
+              <br /> - 6th year: Development of deep Learning and adaptive
+              control algorithms based on real operation-based data <br /> - 7th
+              year: Application in a vehicle system and design enhancement
+            </ListContent>
+          </ListNonImage>
+        </Content>
+        <Content>
+          <Image
+            src={kangseokwon1}
+            style={{
+              top: "50px",
+              left: "290px",
+              width: "887px",
+              height: "374px",
+            }}
+          ></Image>
+        </Content>
       </StyledSlider>
     </Body>
   );
@@ -143,7 +233,7 @@ const Text = styled.div`
 const Title = styled.div`
   /* Layout Properties */
   position: absolute;
-  top: 40px;
+  top: 30px;
   left: 700px;
   width: 967px;
   height: 58px;
@@ -156,7 +246,7 @@ const Title = styled.div`
 `;
 const SubTitle = styled.div`
   position: absolute;
-  top: 180px;
+  top: 150px;
   left: 700px;
   width: 1078px;
   height: 48px;
@@ -238,6 +328,22 @@ const Image = styled.img`
   /* UI Properties */
   opacity: 1;
 `;
+const SmallTitleNonImage = styled.h2`
+  position: relative;
+  top: 196px;
+  left: 228px;
+  width: 768px;
+  height: 25px;
+  /* UI Properties */
+  text-align: left;
+  letter-spacing: var(--unnamed-character-spacing-0);
+  font-size: 22px/36px;
+  font-family: Roboto;
+  text-align: left;
+  letter-spacing: 0px;
+  color: #1a1a1a;
+  opacity: 1;
+`;
 
 const SmallTitle = styled.h2`
   position: relative;
@@ -261,6 +367,14 @@ const List = styled.div`
   top: -80px;
   left: 580px;
   width: 796px;
+  height: 199px;
+  text-align: left;
+`;
+const ListNonImage = styled.div`
+  position: relative;
+  top: 205px;
+  left: 228px;
+  width: 950px;
   height: 199px;
   text-align: left;
 `;

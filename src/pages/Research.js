@@ -1,9 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
 import styles from "../styles/research.module.css";
 import styled, { keyframes } from "styled-components";
 import { useNavigate, Link } from "react-router-dom";
-
+import axios from "axios";
 import smallImage1 from "../static/images/습기제어기술(1).png";
 import largeImage1 from "../static/images/습기제어기술(2).png";
 import smallImage2 from "../static/images/친환경경량화(1).png";
@@ -32,18 +32,54 @@ import introduction8 from "../static/images/강석원교수님.png";
 
 import ContentBar from "../components/ContentBar";
 import ContentIndex from "../components/ContentIndex";
+import Pagination from "../components/Pagination";
 
 import researchOutcomes from "../static/images/ResearchOutcomes.png";
+import SearchIcon from "../static/search.png";
 //
 export default function Research() {
   const [showContent, setShowContent] = useState(false);
   const [showIntro, setShowIntro] = useState(introduction1);
   const [isVisible, setIsVisible] = useState(true);
   const [content, setContent] = useState("thesis");
+  const [searchText, setSearchText] = useState("");
+  const [posts, setPosts] = useState(null);
+  const [years, setYears] = useState(null);
+  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const navigateTo = (professor) => {
     navigate("/ResearchField", { state: professor });
   };
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    alert(searchText);
+  };
+  const changeSearch = (event) => {
+    setSearchText(event.target.value);
+  };
+  const getThesisPatentYear = async (content) => {
+    try {
+      const response = await axios.get(`/${content}/year`);
+      setYears(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getThesisPatent = async (content) => {
+    try {
+      const response = await axios.get(`/${content}/Search/all`);
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  useEffect(() => {
+    // // 페이지 요청
+    // const pageContent = page === 1 ? page1 : page2;
+    // setPosts(pageContent);
+    getThesisPatentYear(content);
+    getThesisPatent(content);
+  }, [content, page]);
   return (
     <main className={styles.main}>
       <Navbar />
@@ -244,6 +280,307 @@ export default function Research() {
             PATENT
           </PatenteButton>
         </OutComes>
+        {content === "thesis" ? (
+          <>
+            <ThesisContainer>
+              <TabList>
+                <Tab>
+                  전체<Cases>200건</Cases>
+                </Tab>
+                <Tab>
+                  2023<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2022<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2021<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2020<Cases>50건</Cases>
+                </Tab>
+              </TabList>
+              <Search placeholder="검색" onChange={changeSearch} />
+              <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+              <Table border={1}>
+                <TableTitle>
+                  <TableData>No</TableData>
+                  <TableData>Year</TableData>
+                  <TableData>Title</TableData>
+                  <TableData>Authors</TableData>
+                  <TableData>Journal</TableData>
+                  <TableData>IF</TableData>
+                  <TableData>JCI</TableData>
+                  <TableData>DOI</TableData>
+                </TableTitle>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+              </Table>
+            </ThesisContainer>
+            {/* <footer
+              style={{
+                position: "relative",
+                right: "50px",
+                top: "2080px",
+              }}
+            >
+              <Pagination
+                total={posts.totalPages}
+                page={page}
+                setPage={setPage}
+                pageSize={posts.size}
+              />
+            </footer> */}
+          </>
+        ) : (
+          <>
+            <PatentContainer>
+              <TabList>
+                <Tab>
+                  전체<Cases>200건</Cases>
+                </Tab>
+                <Tab>
+                  2023<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2022<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2021<Cases>50건</Cases>
+                </Tab>
+                <Tab>
+                  2020<Cases>50건</Cases>
+                </Tab>
+              </TabList>
+              <Search placeholder="검색" onChange={changeSearch} />
+              <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+              <Table>
+                <TableTitle>
+                  <TableData>No</TableData>
+                  <TableData>Year</TableData>
+                  <TableData>Title</TableData>
+                  <TableData>Authors</TableData>
+                  <TableData>Journal</TableData>
+                  <TableData>IF</TableData>
+                  <TableData>JCI</TableData>
+                  <TableData>DOI</TableData>
+                </TableTitle>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+                <TableRow>
+                  <TableData>1</TableData>
+                  <TableData>2020</TableData>
+                  <TableData>titleContent</TableData>
+                  <TableData>AuthorsContent</TableData>
+                  <TableData>JournalContent</TableData>
+                  <TableData>IFContent</TableData>
+                  <TableData>JCIContent</TableData>
+                  <TableData>DOIContent</TableData>
+                </TableRow>
+              </Table>
+            </PatentContainer>
+            {/* <footer
+              style={{
+                position: "relative",
+                right: "50px",
+                top: "2080px",
+              }}
+            >
+              <Pagination
+                total={posts.totalPages}
+                page={page}
+                setPage={setPage}
+                pageSize={posts.size}
+              />
+            </footer> */}
+          </>
+        )}
       </>
     </main>
   );
@@ -261,10 +598,6 @@ function Card({ image, largeImage }) {
   );
 }
 
-const Container = styled.div`
-  overflow: hidden;
-`;
-
 const Image = styled.img`
   position: relative;
   width: 207px;
@@ -279,10 +612,6 @@ const Image = styled.img`
   }
 `;
 
-const ArrowText = styled.p`
-  color: gray;
-  font-weight: bold;
-`;
 const CardComponent = styled.div`
   height: 735px;
 `;
@@ -398,4 +727,115 @@ const PatenteButton = styled.button`
   opacity: 1;
   text-align: center;
   border-style: none;
+`;
+
+const ThesisContainer = styled.div`
+  position: absolute;
+  top: 5000px;
+  left: 335px;
+  height: 1400px;
+  width: 1250px;
+`;
+const PatentContainer = styled.div`
+  position: absolute;
+  top: 5000px;
+  left: 335px;
+  height: 1400px;
+  width: 1250px;
+`;
+
+const TabList = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  width: 750px;
+`;
+const Tab = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+  width: 125px;
+  height: 46px;
+  font: var(--unnamed-font-style-normal) normal
+    var(--unnamed-font-weight-normal) 17px/30px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-ffffff);
+  text-align: left;
+  font: normal normal normal 17px/30px Roboto;
+  letter-spacing: 0px;
+  color: #ffffff;
+  opacity: 1;
+  background: var(--unnamed-color-447bf7) 0% 0% no-repeat padding-box;
+  background: #447bf7 0% 0% no-repeat padding-box;
+  opacity: 1;
+  margin-right: 10px;
+`;
+const Cases = styled.div`
+  width: 53px;
+  height: 28px;
+  border-radius: 10px;
+  font: var(--unnamed-font-style-normal) normal bold 15px/30px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  color: var(--unnamed-color-447bf7);
+  text-align: center;
+  font: normal normal bold 15px/30px Roboto;
+  letter-spacing: 0px;
+  color: #447bf7;
+  opacity: 1;
+  background-color: white;
+`;
+const Search = styled.input`
+  position: relative;
+  top: -47px;
+  left: 756px;
+  width: 472px;
+  height: 46px;
+  background: #d3d3d35c 0% 0% no-repeat padding-box;
+  opacity: 1;
+  border: none;
+  padding-left: 20px;
+`;
+const Icon = styled.img`
+  position: relative;
+  top: -38px;
+  left: 718px;
+  width: 25px;
+  height: 25px;
+`;
+const Table = styled.table`
+  position: absolute;
+  width: 1250px;
+  height: 84px;
+  opacity: 1;
+  border-spacing: 0px;
+  border-top: 2px solid #414ffd;
+  border-bottom: 2px solid #447bf7;
+`;
+const TableTitle = styled.tr`
+  height: 84px;
+  text-align: center;
+  vertical-align: middle;
+  background: #f4f4f4 0% 0% no-repeat padding-box;
+  opacity: 1;
+  font: var(--unnamed-font-style-normal) normal medium 20px /
+    var(--unnamed-line-spacing-28) var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: center;
+  font: normal normal bold 20px/28px Roboto;
+  letter-spacing: 0px;
+  color: #000000;
+  opacity: 1;
+`;
+const TableRow = styled.tr`
+  background-color: white;
+  text-align: center;
+  vertical-align: middle;
+  height: 117px;
+`;
+const TableData = styled.td`
+  border-bottom: 1px solid #b4b4b4;
+  border-right: none;
 `;

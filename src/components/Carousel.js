@@ -48,7 +48,7 @@ function LeftArrow() {
   return (
     <Arrow disabled={isFirstItemVisible} onClick={() => scrollPrev()}>
       <ArrowText>
-        <img src={leftArrow} style={{ width: "30px", height: "30px" }}></img>
+        <img src={leftArrow} style={{ width: "20px", height: "20px" }}></img>
       </ArrowText>
     </Arrow>
   );
@@ -60,7 +60,7 @@ function RightArrow() {
   return (
     <Arrow disabled={isLastItemVisible} onClick={() => scrollNext()}>
       <ArrowText>
-        <img src={righttArrow} style={{ width: "30px", height: "30px" }}></img>
+        <img src={righttArrow} style={{ width: "20px", height: "20px" }}></img>
       </ArrowText>
     </Arrow>
   );

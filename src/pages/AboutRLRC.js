@@ -142,7 +142,7 @@ export default function AboutRLRC() {
           style={{ width: "1920px", height: "1101px" }}
         />
       </div>
-      <div className={styles.material_group}>
+      <div className={styles.material_group} id="material">
         <img
           src={materialIcon}
           style={{
@@ -153,18 +153,13 @@ export default function AboutRLRC() {
             height: "216px",
           }}
         />
-        <h4 className={styles.material_title} id="material">
-          소재그룹
-        </h4>
-        <a href="material"></a>
+        <h4 className={styles.material_title}>소재그룹</h4>
         <div className={styles.meterial_carousel}>
           <Carousel images={materialImages}></Carousel>
         </div>
       </div>
-      <div className={styles.part_group}>
-        <p className={styles.part_title} id="part">
-          부품그룹
-        </p>
+      <div className={styles.part_group} id="part">
+        <p className={styles.part_title}>부품그룹</p>
         <img
           src={materialIcon}
           style={{
