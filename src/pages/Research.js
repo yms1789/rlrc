@@ -21,23 +21,25 @@ import largeImage7 from "../static/images/주행환경인식(2).png";
 import smallImage8 from "../static/images/횡종방향(1).png";
 import largeImage8 from "../static/images/횡종방향(2).png";
 
-import introduction1 from "../static/images/주상우 교수님.png"; // 주상우교수님 없음
+import introduction1 from "../static/images/주상우교수님.png";
 import introduction2 from "../static/images/노준석교수님.png";
 import introduction3 from "../static/images/박주현교수님.png";
 import introduction4 from "../static/images/전상민교수님.png";
-import introduction5 from "../static/images/정호열교수님.png"; // 김해경교수님 없음
+import introduction5 from "../static/images/김해경교수님.png";
 import introduction6 from "../static/images/정호열교수님.png";
 import introduction7 from "../static/images/강미숙교수님.png";
-// 강석원교수님 없음
+import introduction8 from "../static/images/강석원교수님.png";
 
 import ContentBar from "../components/ContentBar";
 import ContentIndex from "../components/ContentIndex";
 
+import researchOutcomes from "../static/images/ResearchOutcomes.png";
 //
 export default function Research() {
   const [showContent, setShowContent] = useState(false);
   const [showIntro, setShowIntro] = useState(introduction1);
   const [isVisible, setIsVisible] = useState(true);
+  const [content, setContent] = useState("thesis");
   const navigate = useNavigate();
   const navigateTo = (professor) => {
     navigate("/ResearchField", { state: professor });
@@ -94,7 +96,6 @@ export default function Research() {
           >
             Key Project
           </h4>
-          <a href="key_project"></a>
           <div className={styles.key_project_contents}>
             <Card image={smallImage2} largeImage={largeImage2} />
             <Card image={smallImage3} largeImage={largeImage3} />
@@ -107,7 +108,6 @@ export default function Research() {
           </div>
         </div>
         <Introduction id="field">
-          <a href="field"></a>
           <IntroductionImage src={showIntro} visible={isVisible} />
           <ButtonContainer>
             <Button
@@ -212,7 +212,7 @@ export default function Research() {
               onMouseOver={() => {
                 setIsVisible(false);
                 setTimeout(() => {
-                  setShowIntro(introduction7);
+                  setShowIntro(introduction8);
                   setIsVisible(true);
                 }, 300);
               }}
@@ -224,7 +224,26 @@ export default function Research() {
             </Button>
           </ButtonContainer>
         </Introduction>
-        {/* <OutComes></OutComes> */}
+        <OutComes id="outcomes">
+          <img src={researchOutcomes} width="1920px" />
+          <ThesisButton
+            onClick={() => {
+              setContent("thesis");
+            }}
+            content={content}
+            id="new_notice"
+          >
+            THESIS
+          </ThesisButton>
+          <PatenteButton
+            onClick={() => {
+              setContent("patent");
+            }}
+            content={content}
+          >
+            PATENT
+          </PatenteButton>
+        </OutComes>
       </>
     </main>
   );
@@ -327,4 +346,56 @@ const Button = styled.button`
     background-color: #3561f5;
     color: white;
   }
+`;
+const OutComes = styled.div`
+  position: absolute;
+  top: 4000px;
+  width: 1920px;
+  height: 1150px;
+`;
+const ThesisButton = styled.button`
+  position: absolute;
+  top: 620px;
+  left: 0px;
+  width: 960px;
+  height: 186px;
+  background: 0% 0% no-repeat padding-box;
+  background-color: ${(props) =>
+    props.content === "thesis" ? "#ffffff" : "#447bfb"};
+  opacity: 1;
+
+  font: var(--unnamed-font-style-normal) normal bold 33px/70px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal bold 33px/70px Roboto;
+  letter-spacing: 0px;
+  color: ${(props) => (props.content === "thesis" ? "#447bfb" : "#ffffff")};
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  border-style: none;
+`;
+const PatenteButton = styled.button`
+  position: absolute;
+  top: 620px;
+  left: 960px;
+  width: 960px;
+  height: 186px;
+  background: 0% 0% no-repeat padding-box;
+  background-color: ${(props) =>
+    props.content === "thesis" ? "#447bfb" : "#ffffff"};
+  opacity: 1;
+
+  font: var(--unnamed-font-style-normal) normal bold 33px/70px
+    var(--unnamed-font-family-roboto);
+  letter-spacing: var(--unnamed-character-spacing-0);
+  text-align: left;
+  font: normal normal bold 33px/70px Roboto;
+  letter-spacing: 0px;
+  color: ${(props) => (props.content === "patent" ? "#447bfb" : "#ffffff")};
+  text-transform: uppercase;
+  opacity: 1;
+  text-align: center;
+  border-style: none;
 `;

@@ -7,6 +7,7 @@ import NewNotice from "./pages/NewNotice";
 import NewNoticeAdmin from "./pages/NewNoticeAdmin";
 import Login from "./pages/Login";
 import ResearchField from "./pages/ResearchField";
+import Detail from "./pages/Detail";
 
 function App() {
   return (
@@ -79,6 +80,14 @@ function App() {
           path="/Login"
           style={{ textDecoration: "none" }}
           element={<Login />}
+        >
+          NEW & NOTICE
+        </Route>
+        <Route
+          className="Detail"
+          path="/Detail"
+          style={{ textDecoration: "none" }}
+          element={<Detail />}
         >
           NEW & NOTICE
         </Route>

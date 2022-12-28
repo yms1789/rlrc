@@ -1,6 +1,6 @@
 import React from "react";
 import styled, { keyframes } from "styled-components";
-import { NavLink } from "react-router-dom";
+import { HashLink } from "react-router-hash-link";
 import back from "../static/back.png";
 
 function ContentIndex(props) {
@@ -25,7 +25,8 @@ function ContentIndex(props) {
         <tr>
           <TableData>
             <StyledLink
-              path="/AboutRLRC#vision_mission"
+              smooth
+              to="/AboutRLRC#vision_mission"
               onClick={() => {
                 setShow(false);
               }}
@@ -35,7 +36,8 @@ function ContentIndex(props) {
           </TableData>
           <TableData>
             <StyledLink
-              path="/Research#key_project"
+              smooth
+              to="/Research#key_project"
               onClick={() => {
                 setShow(false);
               }}
@@ -45,7 +47,8 @@ function ContentIndex(props) {
           </TableData>
           <TableData>
             <StyledLink
-              path="/NewNotice#new_notice"
+              smooth
+              to="/NewNotice#new_notice"
               onClick={() => {
                 setShow(false);
               }}
@@ -57,16 +60,18 @@ function ContentIndex(props) {
         <tr>
           <TableData>
             <StyledLink
+              smooth
               to="/AboutRLRC#material"
               onClick={() => {
                 setShow(false);
               }}
             >
-              연구그룹
+              소재그룹
             </StyledLink>
           </TableData>
           <TableData>
             <StyledLink
+              smooth
               to="/Research#field"
               onClick={() => {
                 setShow(false);
@@ -77,6 +82,7 @@ function ContentIndex(props) {
           </TableData>
           <TableData>
             <StyledLink
+              smooth
               to="/NewNotice#new_notice"
               onClick={() => {
                 setShow(false);
@@ -89,22 +95,20 @@ function ContentIndex(props) {
         <tr>
           <TableData>
             <StyledLink
-              to="연구자"
-              spy={true}
-              smooth={true}
-              onSetActive={() => {
+              smooth
+              to="/AboutRLRC#part"
+              onClick={() => {
                 setShow(false);
               }}
             >
-              연구자
+              부품그룹
             </StyledLink>
           </TableData>
           <TableData>
             <StyledLink
-              to="researchOutcomes"
-              spy={true}
-              smooth={true}
-              onSetActive={() => {
+              smooth
+              to="/Research#outcomes"
+              onClick={() => {
                 setShow(false);
               }}
             >
@@ -216,7 +220,7 @@ const BackButton = styled.button`
   background-color: transparent;
   border-width: 0px;
 `;
-const StyledLink = styled((props) => <NavLink {...props} />)`
+const StyledLink = styled((props) => <HashLink {...props} />)`
   &:hover {
     color: #447bf7;
   }

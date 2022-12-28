@@ -4,11 +4,11 @@ import styles from "../styles/rlrc.module.css";
 import Navbar from "../../src/components/Navbar";
 import Carousel from "../../src/components/Carousel";
 import VISIONMISSION from "../static/images/VISIONMISSION.png";
-import slide01 from "../static/images/습기제어.jpg";
-import slide02 from "../static/images/능동차체제어기술.jpg";
-import slide03 from "../static/images/친환경 경량화.jpg";
-import slide04 from "../static/images/열관리 소재.jpg";
-import slide05 from "../static/images/주행 환경 인식 기술.jpg";
+import slide01 from "../static/images/환경인식기술.png";
+import slide02 from "../static/images/이중안전기술.png";
+import slide03 from "../static/images/습기제어소자.png";
+import slide04 from "../static/images/에너지소자.png";
+import slide05 from "../static/images/디스플레이소재.png";
 import slide06 from "../static/images/홀로그램디스플레이.jpg";
 import materialIcon from "../static/materialIcon.png";
 import ContentBar from "../../src/components/ContentBar";
@@ -162,7 +162,9 @@ export default function AboutRLRC() {
         </div>
       </div>
       <div className={styles.part_group}>
-        <p className={styles.part_title}>부품그룹</p>
+        <p className={styles.part_title} id="part">
+          부품그룹
+        </p>
         <img
           src={materialIcon}
           style={{

@@ -34,7 +34,6 @@ function Carousel(props) {
             image={item.src}
             onClick={handleClick(item.id)}
             selected={isItemSelected(item.id)}
-            name={item.name}
           />
         ))}
       </ScrollMenu>
@@ -115,7 +114,7 @@ const Image = styled.img`
   background-size: cover;
   padding-left: 30px;
   box-shadow: 4px -3px 5px grey;
-  filter: brightness(70%);
+  filter: brightness(100%);
 `;
 
 const ImageText = styled.p`
@@ -125,7 +124,6 @@ const ImageText = styled.p`
   letter-spacing: 0px;
   color: white;
   text-shadow: 4px 9px 16px #00000036;
-  opacity: 1;
 `;
 
 const ArrowText = styled.p`

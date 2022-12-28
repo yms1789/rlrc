@@ -17,9 +17,9 @@ function FormEditor(props) {
       const response = await axios.post(
         "/admin/notice/save",
         {
-          title,
-          formData,
-          content,
+          title: title,
+          attachFiles: formData,
+          content: content,
         },
         {
           headers: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import ContentBar from "../components/ContentBar";
 import ContentIndex from "../components/ContentIndex";
 import Navbar from "../components/Navbar";
@@ -146,6 +146,7 @@ export default function NewNotice() {
   const [content, setContent] = useState("news");
   const [posts, setPosts] = useState(page1);
   const [page, setPage] = useState(1);
+  const navigate = useNavigate();
   const [showButton, setShowButton] = useState(
     Array(posts.numberOfElements).fill(false)
   );
@@ -154,7 +155,7 @@ export default function NewNotice() {
     alert(``);
   };
   const handleClick = (id) => {
-    console.log(id);
+    navigate("/Detail", { state: id });
   };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);
@@ -215,7 +216,6 @@ export default function NewNotice() {
           </ul>
         </div>
         <Title>NEWS & NOTICE</Title>
-        <a href="new_notice"></a>
         <NewsButton
           onClick={() => {
             setContent("news");
