@@ -16,7 +16,7 @@ function FormEditor(props) {
     event.preventDefault();
     if (title === "" || content === "") {
       alert("제목과 내용을 입력해주세요");
-      navigate("/NewNoticeAdmin");
+      return;
     }
     const formData = new FormData();
     formData.append("title", title);
@@ -34,7 +34,8 @@ function FormEditor(props) {
           },
         }
       );
-      navigate("/NewNoticeAdmin");
+      alert("성공");
+      navigate(-1);
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");
