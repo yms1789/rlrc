@@ -14,9 +14,15 @@ function FormEditor(props) {
   const [content, setContent] = useState("");
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (title === "" || content === "") {
+      alert("제목과 내용을 입력해주세요");
+      window.location.reload();
+    }
     const formData = new FormData();
     formData.append("title", title);
-    selectedFile.forEach((file) => formData.append("attachFiles", file));
+    if (selectedFile) {
+      selectedFile.forEach((file) => formData.append("attachFiles", file));
+    }
     formData.append("content", content);
     try {
       const response = await axios.post(
@@ -49,6 +55,7 @@ function FormEditor(props) {
     setSelectedFile(Array.from(event.target.files));
   };
   const toAdminHome = () => {
+    console.log("setAddContents", setAddContents);
     setAddContents(false);
   };
 

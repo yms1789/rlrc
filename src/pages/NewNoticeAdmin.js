@@ -183,11 +183,11 @@ export default function NewNoticeAdmin() {
   const handleDelete = () => {
     setDeleteContent(!deleteContent);
   };
-  const handleDeleteContent = async (id) => {
-    console.log(id);
+  const handleDeleteContent = async (id, content) => {
+    console.log(id, content);
     try {
       setLoading(true);
-      const response = await axios.delete(`notice/${id}`);
+      const response = await axios.delete(`/admin/${content}/${id}`);
       setPosts(response.data);
       setLoading(false);
     } catch (error) {
@@ -208,6 +208,7 @@ export default function NewNoticeAdmin() {
   const handleSearch = useCallback((e) => {
     alert("asd");
   }, []);
+  console.log(addNews);
   return (
     <main className={styles.main}>
       <>
@@ -217,6 +218,7 @@ export default function NewNoticeAdmin() {
             setContent("news");
             setAddNews(false);
             setAddNotice(false);
+            setDeleteContent(false);
           }}
           content={content}
           id="new_notice"
@@ -228,6 +230,7 @@ export default function NewNoticeAdmin() {
             setContent("notice");
             setAddNews(false);
             setAddNotice(false);
+            setDeleteContent(false);
           }}
           content={content}
         >
@@ -262,7 +265,9 @@ export default function NewNoticeAdmin() {
                     }}
                   >
                     {deleteContent && (
-                      <DeleteButton onClick={() => handleDeleteContent(ele.id)}>
+                      <DeleteButton
+                        onClick={() => handleDeleteContent(ele.id, "news")}
+                      >
                         X
                       </DeleteButton>
                     )}
@@ -292,7 +297,15 @@ export default function NewNoticeAdmin() {
                             handleClick(ele.id);
                           }}
                         >
-                          +
+                          <p
+                            style={{
+                              color: "white",
+                              fontSize: "20px",
+                              fontWeight: "bold",
+                            }}
+                          >
+                            +
+                          </p>
                         </DetailButton>
                       )
                     ) : (
@@ -318,10 +331,9 @@ export default function NewNoticeAdmin() {
             </News>
           ) : (
             <Editor>
-              {/* <LoadableEditor /> */}
               <FormEditor
-                addNews={addNews}
-                setAddNews={setAddNews}
+                addContents={addNews}
+                setAddContents={setAddNews}
                 content="news"
               />
             </Editor>
@@ -353,6 +365,13 @@ export default function NewNoticeAdmin() {
                     handleLeave(ele.id);
                   }}
                 >
+                  {deleteContent && (
+                    <DeleteButton
+                      onClick={() => handleDeleteContent(ele.id, "notice")}
+                    >
+                      X
+                    </DeleteButton>
+                  )}
                   <h3
                     style={{
                       paddingLeft: "1.5em",
@@ -372,14 +391,26 @@ export default function NewNoticeAdmin() {
                   >
                     {ele.content}
                   </p>
-                  {showButton[posts.content.length - ele.id] && (
-                    <DetailButton
-                      onClick={() => {
-                        handleClick(ele.id);
-                      }}
-                    >
-                      +
-                    </DetailButton>
+                  {showButton[posts.content.length - ele.id] === true ? (
+                    !deleteContent && (
+                      <DetailButton
+                        onClick={() => {
+                          handleClick(ele.id);
+                        }}
+                      >
+                        <p
+                          style={{
+                            color: "white",
+                            fontSize: "20px",
+                            fontWeight: "bold",
+                          }}
+                        >
+                          +
+                        </p>
+                      </DetailButton>
+                    )
+                  ) : (
+                    <></>
                   )}
                 </PaginationElement>
               ))}
@@ -401,7 +432,6 @@ export default function NewNoticeAdmin() {
           </Notice>
         ) : (
           <Editor>
-            {/* <LoadableEditor /> */}
             <FormEditor
               addContents={addNotice}
               setAddContents={setAddNotice}
