@@ -25,7 +25,7 @@ function Detail() {
   };
   useEffect(() => {
     getDetailData(content, id);
-  }, [content, id, state]);
+  }, []);
 
   return (
     <main className={styles.main}>
@@ -108,9 +108,7 @@ function Detail() {
             {detailData.attachFile.length ? detailData.attachFile : "없음"}
           </span>
         </DetailProperties>
-        <DetailContent>
-          {detailData.content}
-        </DetailContent>
+        <DetailContent>{detailData.content}</DetailContent>
       </DetailContainer>
     </main>
   );
