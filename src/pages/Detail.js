@@ -18,6 +18,7 @@ function Detail() {
   const getDetailData = async (content, id) => {
     try {
       const response = await axios.get(`/${content}/${id}`);
+      console.log(response);
       setDetailData(response.data);
     } catch (error) {
       console.log(error);
