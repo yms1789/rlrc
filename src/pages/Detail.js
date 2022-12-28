@@ -93,23 +93,25 @@ function Detail() {
         <DetailTitle>
           <TitleText>
             {/* 박주현 영남대 교수, 세계 상위 1% 연구자 8년 연속 선정 */}
-            {detailData.title}
+            {/* {detailData.title} */}
           </TitleText>
         </DetailTitle>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
             {/* 2022-12-22 */}
-            {detailData.date}
+            {/* {detailData.date} */}
           </span>
         </DetailProperties>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>첨부파일</h3>
           <span style={{ fontSize: "18px" }}>
-            {detailData.attachFile ? detailData.attachFile : "없음"}
+            {/* {detailData.attachFile ? detailData.attachFile : "없음"} */}
           </span>
         </DetailProperties>
-        <DetailContent>{detailData.content}</DetailContent>
+        <DetailContent>
+          {/* {detailData.content} */}
+        </DetailContent>
       </DetailContainer>
     </main>
   );
