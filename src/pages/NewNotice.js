@@ -15,17 +15,25 @@ const page1 = {
 };
 
 export default function NewNotice() {
+  const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const [curContent, setCurContent] = useState("news");
   const [posts, setPosts] = useState(page1);
   const [page, setPage] = useState(1);
-  const navigate = useNavigate();
+  const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
     Array(posts.numberOfElements).fill(false)
   );
-  const handleSubmit = (event) => {
+  const handleSearch = async (event) => {
     event.preventDefault();
-    alert(``);
+    try {
+      const response = await axios.get(
+        `/${curContent}/search/title?word=${searchText}`
+      );
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const handleClick = (id) => {
     navigate("/Detail", { state: [id, curContent] });
@@ -45,6 +53,9 @@ export default function NewNotice() {
     } catch (error) {
       console.log(error);
     }
+  };
+  const changeSearch = (event) => {
+    setSearchText(event.target.value);
   };
   useEffect(() => {
     // 페이지 요청
@@ -116,12 +127,8 @@ export default function NewNotice() {
         {curContent === "news" ? (
           <News>
             <NoticeTitle>NEWS</NoticeTitle>
-            <form onSubmit={handleSubmit}>
-              <Search placeholder="검색" />
-              <button onClick={handleSubmit}>
-                <Icon src={SearchIcon}></Icon>
-              </button>
-            </form>
+            <Search placeholder="검색" onChange={changeSearch} />
+            <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Line />
             <PaginationContainer>
               {posts !== null ? (
@@ -201,12 +208,8 @@ export default function NewNotice() {
         ) : (
           <Notice>
             <NoticeTitle>NOTICE</NoticeTitle>
-            <form onSubmit={handleSubmit}>
-              <Search placeholder="검색" />
-              <button onClick={handleSubmit}>
-                <Icon src={SearchIcon}></Icon>
-              </button>
-            </form>
+            <Search placeholder="검색" onChange={changeSearch} />
+            <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Line />
             <PaginationContainer>
               {posts.content.map((ele) => (

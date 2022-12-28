@@ -34,8 +34,7 @@ function FormEditor(props) {
           },
         }
       );
-      console.log(response);
-      toAdminHome();
+      window.location.reload();
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");

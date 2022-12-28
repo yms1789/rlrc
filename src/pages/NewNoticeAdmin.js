@@ -13,20 +13,21 @@ const page1 = {
 export default function NewNoticeAdmin() {
   const [curContent, setCurContent] = useState("news");
   const [posts, setPosts] = useState(page1);
-  const [text, setText] = useState("");
   const [page, setPage] = useState(1);
   const [deleteContent, setDeleteContent] = useState(false);
   const [addNews, setAddNews] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
+  const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
     Array(posts.numberOfElements).fill(false)
   );
-  const handleSubmit = async (e) => {
-    e.preventDefault();
+  const handleSearch = async (event) => {
+    event.preventDefault();
     try {
-      const response = await axios.get(`api/notice/search/title?word=${text}`);
+      const response = await axios.get(
+        `/${curContent}/search/title?word=${searchText}`
+      );
       setPosts(response.data);
-      alert("로그인 되었습니다.");
     } catch (error) {
       console.log(error);
     }
@@ -75,12 +76,10 @@ export default function NewNoticeAdmin() {
     // 페이지 요청
     getNewNotice(curContent);
   }, [curContent, page]);
-  const handleChange = useCallback((e) => {
-    setText(e.currentTarget.value);
-  }, []);
-  const handleSearch = useCallback((e) => {
-    alert("asd");
-  }, []);
+
+  const changeSearch = (event) => {
+    setSearchText(event.target.value);
+  };
   return (
     <main className={styles.main}>
       <>
@@ -112,10 +111,8 @@ export default function NewNoticeAdmin() {
           addNews === false ? (
             <News>
               <NoticeTitle>NEWS</NoticeTitle>
-              <form onSubmit={handleSubmit}>
-                <Search placeholder="검색" onChange={handleChange} />
-                <Icon src={SearchIcon} onClick={handleSearch}></Icon>
-              </form>
+              <Search placeholder="검색" onChange={changeSearch} />
+              <Icon src={SearchIcon} onClick={handleSearch}></Icon>
               <ButtonContainer>
                 <Button value="add" onClick={handleAddNews}>
                   추가
@@ -223,10 +220,8 @@ export default function NewNoticeAdmin() {
         ) : addNotice === false ? (
           <Notice>
             <NoticeTitle>NOTICE</NoticeTitle>
-            <form onSubmit={handleSubmit}>
-              <Search placeholder="검색" />
-              <Icon src={SearchIcon} onClick={handleSearch}></Icon>
-            </form>
+            <Search placeholder="검색" onChange={changeSearch} />
+            <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <ButtonContainer>
               <Button value="add" onClick={handleAddNotice}>
                 추가
