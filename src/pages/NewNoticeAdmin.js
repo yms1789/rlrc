@@ -76,7 +76,7 @@ export default function NewNoticeAdmin() {
   useEffect(() => {
     // 페이지 요청
     getNewNotice(curContent);
-  }, [curContent, page]);
+  }, [curContent, page, posts]);
 
   const changeSearch = (event) => {
     setSearchText(event.target.value);
