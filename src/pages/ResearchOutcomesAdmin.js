@@ -35,6 +35,7 @@ function ResearchOutcomesAdmin() {
       alert("성공");
       console.log(response);
       setUpload(false);
+      window.location.reload();
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");
