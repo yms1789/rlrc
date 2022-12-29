@@ -32,54 +32,16 @@ import introduction8 from "../static/images/강석원교수님.png";
 
 import ContentBar from "../components/ContentBar";
 import ContentIndex from "../components/ContentIndex";
-import Pagination from "../components/Pagination";
-
-import researchOutcomes from "../static/images/ResearchOutcomes.png";
-import SearchIcon from "../static/search.png";
 
 export default function Research() {
   const [showContent, setShowContent] = useState(false);
   const [showIntro, setShowIntro] = useState(introduction1);
   const [isVisible, setIsVisible] = useState(true);
-  const [content, setContent] = useState("thesis");
-  const [searchText, setSearchText] = useState("");
-  const [posts, setPosts] = useState(null);
-  const [years, setYears] = useState(null);
-  const [page, setPage] = useState(1);
   const navigate = useNavigate();
   const navigateTo = (professor) => {
     navigate("/ResearchField", { state: professor });
   };
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(searchText);
-  };
-  const changeSearch = (event) => {
-    setSearchText(event.target.value);
-  };
-  const getThesisPatentYear = async (content) => {
-    try {
-      const response = await axios.get(`/${content}/year`);
-      setYears(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const getThesisPatent = async (content) => {
-    try {
-      const response = await axios.get(`/${content}/search/all`);
-      setPosts(response.data);
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  useEffect(() => {
-    // // 페이지 요청
-    // const pageContent = page === 1 ? page1 : page2;
-    // setPosts(pageContent);
-    getThesisPatentYear(content);
-    getThesisPatent(content);
-  }, [content, page]);
+
   return (
     <main className={styles.main}>
       <Navbar />
@@ -260,7 +222,7 @@ export default function Research() {
             </Button>
           </ButtonContainer>
         </Introduction>
-        <OutComes id="outcomes">
+        {/* <OutComes id="outcomes">
           <img src={researchOutcomes} width="1920px" />
           <ThesisButton
             onClick={() => {
@@ -415,20 +377,22 @@ export default function Research() {
                 </TableRow>
               </Table>
             </ThesisContainer>
-            {/* <footer
-              style={{
-                position: "relative",
-                right: "50px",
-                top: "2080px",
-              }}
-            >
-              <Pagination
-                total={posts.totalPages}
-                page={page}
-                setPage={setPage}
-                pageSize={posts.size}
-              />
-            </footer> */}
+            {posts && (
+              <footer
+                style={{
+                  position: "relative",
+                  right: "50px",
+                  top: "2080px",
+                }}
+              >
+                <Pagination
+                  total={posts.totalPages}
+                  page={page}
+                  setPage={setPage}
+                  pageSize={posts.size}
+                />
+              </footer>
+            )}
           </>
         ) : (
           <>
@@ -565,22 +529,24 @@ export default function Research() {
                 </TableRow>
               </Table>
             </PatentContainer>
-            {/* <footer
-              style={{
-                position: "relative",
-                right: "50px",
-                top: "2080px",
-              }}
-            >
-              <Pagination
-                total={posts.totalPages}
-                page={page}
-                setPage={setPage}
-                pageSize={posts.size}
-              />
-            </footer> */}
+            {posts && (
+              <footer
+                style={{
+                  position: "relative",
+                  right: "50px",
+                  top: "2080px",
+                }}
+              >
+                <Pagination
+                  total={posts.totalPages}
+                  page={page}
+                  setPage={setPage}
+                  pageSize={posts.size}
+                />
+              </footer>
+            )}
           </>
-        )}
+        )} */}
       </>
     </main>
   );

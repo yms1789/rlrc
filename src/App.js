@@ -8,6 +8,7 @@ import NewNoticeAdmin from "./pages/NewNoticeAdmin";
 import Login from "./pages/Login";
 import ResearchField from "./pages/ResearchField";
 import Detail from "./pages/Detail";
+import ResearchOutcomes from "./pages/ResearchOutcomes";
 
 function App() {
   return (
@@ -74,6 +75,12 @@ function App() {
           path="/Detail"
           style={{ textDecoration: "none" }}
           element={<Detail />}
+        ></Route>
+        <Route
+          className="ResearchOutcomes"
+          path="/ResearchOutcomes"
+          style={{ textDecoration: "none" }}
+          element={<ResearchOutcomes />}
         ></Route>
       </Routes>
     </div>
