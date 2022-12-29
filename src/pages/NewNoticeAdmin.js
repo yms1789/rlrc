@@ -181,9 +181,21 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
   };
+  const getNewNoticeSearch = async (content) => {
+    try {
+      const response = await axios.get(
+        `/${content}/search/all?page=${page - 1}&word=${searchText}`
+      );
+      content === "news"
+        ? setNewsPosts(response.data)
+        : setNoticePosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     // 페이지 요청
-    getNewNotice(curContent);
+    searchText ? getNewNoticeSearch(curContent) : getNewNotice(curContent);
   }, [curContent, page]);
 
   const changeSearch = (event) => {
