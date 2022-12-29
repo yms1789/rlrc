@@ -108,7 +108,7 @@ function Detail() {
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
-            {detailData && <span>detailData.date</span>}
+            {detailData && <span>{detailData.date}</span>}
           </span>
         </DetailProperties>
         <DetailProperties
@@ -147,6 +147,7 @@ function Detail() {
         {detailData && (
           <DetailContent>
             {imageName && <DetailImage src={`/notice/image/${imageName}`} />}
+            <br />
             <br />
             {detailData.content}
           </DetailContent>
