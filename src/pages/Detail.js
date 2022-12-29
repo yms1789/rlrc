@@ -22,7 +22,7 @@ function Detail() {
       const response = await axios.get(`/${content}/${id}`);
       console.log(response);
       setDetailData(response.data);
-      setImageUrl(response.data.imageFile.filePath);
+      setImageUrl(response.data.filePath);
     } catch (error) {
       console.log(error);
     }
