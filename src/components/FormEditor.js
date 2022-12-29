@@ -25,7 +25,7 @@ function FormEditor(props) {
     if (selectedFile) {
       selectedFile.forEach((file) => formData.append("attachFiles", file));
     }
-    formData.append("imageFile", selectedImage);
+    selectedImage && formData.append("imageFile", selectedImage);
     formData.append("content", content);
     try {
       const response = await axios.post(
