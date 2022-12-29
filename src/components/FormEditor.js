@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 function FormEditor(props) {
   const navigate = useNavigate();
   const setAddContents = props.setAddContents;
-  const addContents = props.addContents;
   const currentContent = props.content;
   const [selectedFile, setSelectedFile] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState([]);
@@ -35,6 +34,7 @@ function FormEditor(props) {
         }
       );
       alert("성공");
+      console.log(response);
       setAddContents(false);
     } catch (error) {
       if (error.status === 400) {

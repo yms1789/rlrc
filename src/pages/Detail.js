@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,7 +7,20 @@ import ContentIndex from "../components/ContentIndex";
 import Navbar from "../components/Navbar";
 import styles from "../styles/newNotice.module.css";
 import styled from "styled-components";
-
+// const page1 = {
+//   id: 1,
+//   attachFile: [
+//     {
+//       id: 1,
+//       uploadFileName: "asd",
+//     },
+//   ],
+//   title: "8",
+//   content: "11111",
+//   dateTime: "2022-12-23T16:15:32.530192",
+//   uploadFileName: null,
+//   storeFileName: null,
+// };
 function Detail() {
   const { state } = useLocation();
 
@@ -17,19 +30,19 @@ function Detail() {
   const id = state[0];
   const content = state[1];
 
-  const getDetailData = async (content, id) => {
+  const getDetailData = useCallback(async (content, id) => {
     try {
       const response = await axios.get(`/${content}/${id}`);
       setDetailData(response.data);
     } catch (error) {
       console.log(error);
     }
-  };
+  }, []);
 
   useEffect(() => {
     getDetailData(content, id);
     console.log(detailData);
-  }, [content, detailData, id]);
+  }, [content, detailData, getDetailData, id]);
 
   return (
     <main className={styles.main}>
@@ -96,24 +109,24 @@ function Detail() {
         <DetailTitle>
           <TitleText>
             {/* 박주현 영남대 교수, 세계 상위 1% 연구자 8년 연속 선정 */}
-            {detailData && <span>detailData.title</span>}
+            {detailData && <span>{detailData.title}</span>}
           </TitleText>
         </DetailTitle>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
             {/* 2022-12-22 */}
-            {detailData && <span>detailData.date</span>}
+            {detailData && <span></span>}
           </span>
         </DetailProperties>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>첨부파일</h3>
           <span style={{ fontSize: "18px" }}>
             {detailData &&
-              detailData.ttachFiles.map((item) => <span>{item}</span>)}
+              detailData.attachFile.map((item) => item.uploadFileName)}
           </span>
         </DetailProperties>
-        {detailData && <span>detailData.content</span>}
+        {detailData && <span>{detailData.content}</span>}
       </DetailContainer>
     </main>
   );

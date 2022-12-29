@@ -10,26 +10,26 @@ import axios from "axios";
 import SearchIcon from "../static/search.png";
 import styled from "styled-components";
 
-const page1 = {
-  content: [
-    {
-      id: 1,
-      attachFile: null,
-      title: "8",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:32.530192",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  numberOfElements: 1,
-};
+// const page1 = {
+//   content: [
+//     {
+//       id: 1,
+//       attachFile: null,
+//       title: "8",
+//       content: "11111",
+//       dateTime: "2022-12-23T16:15:32.530192",
+//       uploadFileName: null,
+//       storeFileName: null,
+//     },
+//   ],
+//   numberOfElements: 1,
+// };
 
 export default function NewNotice() {
   const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
   const [curContent, setCurContent] = useState("news");
-  const [posts, setPosts] = useState(page1);
+  const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
@@ -47,7 +47,7 @@ export default function NewNotice() {
     }
   };
   const handleClick = (id) => {
-    navigate("/Detail", { state: [id, curContent, page1] });
+    navigate("/Detail", { state: [id, curContent] });
   };
   const handleEnter = (id) => {
     let arr = Array(posts.numberOfElements).fill(false);

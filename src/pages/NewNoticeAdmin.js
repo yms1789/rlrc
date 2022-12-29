@@ -9,11 +9,25 @@ import { useNavigate } from "react-router-dom";
 const page1 = {
   content: [],
 };
+const page2 = {
+  content: [
+    {
+      id: 1,
+      attachFile: null,
+      title: "8",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:32.530192",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+  ],
+  numberOfElements: 1,
+};
 
 export default function NewNoticeAdmin() {
   const navigate = useNavigate();
   const [curContent, setCurContent] = useState("news");
-  const [posts, setPosts] = useState(page1);
+  const [posts, setPosts] = useState(page2);
   const [page, setPage] = useState(1);
   const [deleteContent, setDeleteContent] = useState(false);
   const [addNews, setAddNews] = useState(false);
@@ -34,7 +48,7 @@ export default function NewNoticeAdmin() {
     }
   };
   const handleClick = (id) => {
-    console.log(id);
+    navigate("/Detail", { state: [id, curContent] });
   };
   const handleAddNews = () => {
     setAddNews(true);
