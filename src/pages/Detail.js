@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -14,8 +14,8 @@ function Detail() {
   const navigate = useNavigate();
   const [detailData, setDetailData] = useState(null);
   const [showContent, setShowContent] = useState(false);
-  const id = state[0];
-  const content = state[1];
+  const id = state ? state[0] : 0;
+  const content = state ? state[1] : "";
 
   const getDetailData = async (content, id) => {
     try {
@@ -28,8 +28,7 @@ function Detail() {
 
   useEffect(() => {
     getDetailData(content, id);
-    console.log(detailData);
-  }, [content, detailData, id]);
+  }, [content, id]);
 
   return (
     <main className={styles.main}>
@@ -103,7 +102,7 @@ function Detail() {
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
             {/* 2022-12-22 */}
-            {detailData && <span></span>}
+            {detailData && <span>detailData.date</span>}
           </span>
         </DetailProperties>
         <DetailProperties>
@@ -113,7 +112,7 @@ function Detail() {
               detailData.attachFile.map((item) => item.uploadFileName)}
           </span>
         </DetailProperties>
-        {detailData && <span>{detailData.content}</span>}
+        {detailData && <DetailContent>{detailData.content}</DetailContent>}
       </DetailContainer>
     </main>
   );
@@ -229,7 +228,6 @@ const DetailProperties = styled.div`
 const DetailContent = styled.div`
   height: 1572px;
   width: 1246px;
-  /* background-color: lightblue; */
   border-bottom: 1px solid #b4b4b4;
   opacity: 1;
 `;

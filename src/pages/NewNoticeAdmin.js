@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Pagination from "../components/Pagination";
 import styles from "../styles/newNotice.module.css";
@@ -6,7 +6,90 @@ import axios from "axios";
 import SearchIcon from "../static/search.png";
 import FormEditor from "../components/FormEditor";
 import { useNavigate } from "react-router-dom";
-
+const page1 = {
+  content: [
+    {
+      id: 8,
+      attachFile: null,
+      title: "8",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:32.530192",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+    {
+      id: 7,
+      attachFile: null,
+      title: "7",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:28.301017",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+    {
+      id: 6,
+      attachFile: null,
+      title: "6",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:24.861397",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+    {
+      id: 5,
+      attachFile: null,
+      title: "5",
+      content:
+        "Quis sit reprehenderit fugiat in amet reprehenderit est exercitation incididunt. Aliqua tempor exercitation in pariatur ea non qui irure labore dolor occaecat excepteur aliqua commodo. Aliqua consectetur culpa cupidatat dolor aute officia consequat incididunt sit est consectetur consectetur. Est ullamco quis eu minim nulla id enim aute. In amet in fugiat consequat nulla. Voluptate veniam elit dolore elit sint ea cupidatat ea labore ad commodo Lorem commodo. Enim elit eu velit minim amet officia ipsum magna.Id ipsum sunt laboris labore aliquip ex aute Lorem aute esse dolore tempor. Ad reprehenderit dolore ut sint ex adipisicing officia nisi adipisicing fugiat ea labore. Dolor esse est sint nisi magna enim consectetur non.Pariatur consectetur cupidatat culpa dolor aliqua non amet velit exercitation culpa occaecat. Exercitation consequat do nostrud consequat non ea anim laborum anim cillum ut occaecat. Ipsum incididunt do cupidatat voluptate qui. Incididunt est eiusmod labore tempor exercitation dolor cillum nostrud tempor do deserunt velit nulla tempor.Labore tempor velit nulla ea adipisicing sit incididunt deserunt amet eiusmod. Ut ad laboris ut eiusmod aute. Aliquip quis duis et ea eiusmod tempor qui eiusmod esse. Consectetur excepteur ad minim commodo. Ad reprehenderit ut reprehenderit cupidatat nulla dolore non anim aliquip in. Tempor qui cillum adipisicing nostrud ex consectetur eiusmod aute ex. Elit Lorem incididunt nisi proident.",
+      dateTime: "2022-12-23T16:15:21.558377",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+    {
+      id: 4,
+      attachFile: null,
+      title: "4",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:17.429154",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+    {
+      id: 3,
+      attachFile: null,
+      title: "3",
+      content: "11111",
+      dateTime: "2022-12-23T16:15:14.163898",
+      uploadFileName: null,
+      storeFileName: null,
+    },
+  ],
+  pageable: {
+    sort: {
+      empty: false,
+      unsorted: false,
+      sorted: true,
+    },
+    offset: 0,
+    pageNumber: 0,
+    pageSize: 6,
+    paged: true,
+    unpaged: false,
+  },
+  totalPages: 1,
+  totalElements: 8,
+  last: false,
+  size: 6,
+  number: 0,
+  sort: {
+    empty: false,
+    unsorted: false,
+    sorted: true,
+  },
+  numberOfElements: 6,
+  first: true,
+  empty: false,
+};
 export default function NewNoticeAdmin() {
   const navigate = useNavigate();
   const [curContent, setCurContent] = useState("news");
@@ -140,25 +223,38 @@ export default function NewNoticeAdmin() {
                             X
                           </DeleteButton>
                         )}
-                        <h3
-                          style={{
-                            paddingLeft: "1.5em",
-                            paddingRight: "1.5em",
-                            marginBlockStart: 80,
-                            marginBlockEnd: 0,
-                            color: "#447bf7",
-                          }}
-                        >
-                          {ele.title}
-                        </h3>
-                        <p
-                          style={{
-                            paddingLeft: "1.7em",
-                            paddingRight: "1.5em",
-                          }}
-                        >
-                          {ele.content}
-                        </p>
+                        <ContentContainer>
+                          <h3
+                            style={{
+                              textAalign: "left",
+                              font: "normal normal bold 22px/28px Roboto",
+                              letterSpacing: "0px",
+                              color: "#447BF7",
+                              opacity: 1,
+                            }}
+                          >
+                            {ele.title}
+                          </h3>
+                          <span
+                            style={{
+                              display: "-webkit-box",
+                              textAlign: "left",
+                              font: "normal normal normal 16px/23px Roboto",
+                              letterSpacing: "0px",
+                              color: "#606060",
+                              opacity: 1,
+                              overflow: "hidden",
+                              WebkitBoxOrient: "vertical",
+                              WebkitLineClamp: 3,
+                              maxWidth: "100%",
+                              textOverflow: "ellipsis",
+                              lineClamp: 2,
+                              height: "66px",
+                            }}
+                          >
+                            {ele.content}
+                          </span>
+                        </ContentContainer>
                         {showButton[posts.content.length - ele.id] === true ? (
                           !deleteContent && (
                             <DetailButton
@@ -190,7 +286,7 @@ export default function NewNoticeAdmin() {
                   style={{
                     position: "relative",
                     right: "50px",
-                    top: "2280px",
+                    top: "2440px",
                   }}
                 >
                   <Pagination
@@ -245,25 +341,38 @@ export default function NewNoticeAdmin() {
                           X
                         </DeleteButton>
                       )}
-                      <h3
-                        style={{
-                          paddingLeft: "1.5em",
-                          paddingRight: "1.5em",
-                          marginBlockStart: 80,
-                          marginBlockEnd: 0,
-                          color: "#447bf7",
-                        }}
-                      >
-                        {ele.title}
-                      </h3>
-                      <p
-                        style={{
-                          paddingLeft: "1.7em",
-                          paddingRight: "1.5em",
-                        }}
-                      >
-                        {ele.content}
-                      </p>
+                      <ContentContainer>
+                        <h3
+                          style={{
+                            textAalign: "left",
+                            font: "normal normal bold 22px/28px Roboto",
+                            letterSpacing: "0px",
+                            color: "#447BF7",
+                            opacity: 1,
+                          }}
+                        >
+                          {ele.title}
+                        </h3>
+                        <span
+                          style={{
+                            display: "-webkit-box",
+                            textAlign: "left",
+                            font: "normal normal normal 16px/23px Roboto",
+                            letterSpacing: "0px",
+                            color: "#606060",
+                            opacity: 1,
+                            overflow: "hidden",
+                            WebkitBoxOrient: "vertical",
+                            WebkitLineClamp: 3,
+                            maxWidth: "100%",
+                            textOverflow: "ellipsis",
+                            lineClamp: 2,
+                            height: "66px",
+                          }}
+                        >
+                          {ele.content}
+                        </span>
+                      </ContentContainer>
                       {showButton[posts.content.length - ele.id] === true ? (
                         !deleteContent && (
                           <DetailButton
@@ -296,7 +405,7 @@ export default function NewNoticeAdmin() {
                   style={{
                     position: "relative",
                     right: "50px",
-                    top: "2280px",
+                    top: "2440px",
                   }}
                 >
                   <Pagination
@@ -389,8 +498,8 @@ const News = styled.div``;
 const Notice = styled.main``;
 const DeleteButton = styled.button`
   position: relative;
-  top: -0.8rem;
-  left: 17.6rem;
+  top: -0.9rem;
+  left: 21.3rem;
   width: 30px;
   height: 30px;
   border-radius: 100px;
@@ -403,7 +512,7 @@ const DeleteButton = styled.button`
 const NoticeTitle = styled.p`
   position: absolute;
   top: 1376px;
-  left: 420px;
+  left: 350px;
   width: 97px;
   height: 33px;
 
@@ -420,7 +529,7 @@ const NoticeTitle = styled.p`
 const Search = styled.input`
   position: absolute;
   top: 1415px;
-  left: 578px;
+  left: 678px;
   width: 520px;
   height: 46px;
   background: #d3d3d35c 0% 0% no-repeat padding-box;
@@ -431,7 +540,7 @@ const Search = styled.input`
 const ButtonContainer = styled.div`
   position: relative;
   top: 88.2em;
-  left: 74em;
+  left: 81em;
   width: 18em;
   display: flex;
   justify-content: space-around;
@@ -468,10 +577,10 @@ const PaginationContainer = styled.div`
   display: flex;
   position: absolute;
   top: 1600px;
-  left: 17%;
+  left: 13%;
   padding: 10px;
   width: 1500px;
-  height: 700px;
+  height: 800px;
   flex-direction: row;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -480,8 +589,8 @@ const PaginationContainer = styled.div`
 
 const PaginationElement = styled.article`
   position: relative;
-  width: 300px;
-  height: 300px;
+  width: 357px;
+  height: 357px;
   background: #ffffff 0% 0% no-repeat padding-box;
   box-shadow: 5px 5px 22px #00000029;
   opacity: 1;
@@ -490,10 +599,15 @@ const PaginationElement = styled.article`
   justify-content: center;
   text-align: left;
 `;
+const ContentContainer = styled.div`
+  height: 225px;
+  width: 270px;
+  padding: 70px 45px 64px 42px;
+`;
 const DetailButton = styled.button`
   position: relative;
-  top: 6em;
-  left: 17.5em;
+  top: -5.3em;
+  left: 21.8em;
   width: 68px;
   height: 68px;
   background: #447bf7;
@@ -504,7 +618,7 @@ const DetailButton = styled.button`
 const Icon = styled.img`
   position: absolute;
   top: 1423px;
-  left: 1080px;
+  left: 1180px;
   width: 30px;
   height: 30px;
 `;

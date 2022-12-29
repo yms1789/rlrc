@@ -10,6 +10,7 @@ function Login() {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
+  const [logIn, setLogIn] = useState(false);
   const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
@@ -33,6 +34,7 @@ function Login() {
       });
       alert("로그인 되었습니다.");
       setLoading(false);
+      setLogIn(true);
       // dispatch(
       //   userSlice.actions.setUserInfo({
       //     userId: response.data.customeruserId,
@@ -56,23 +58,34 @@ function Login() {
   }, []);
   return (
     <Container>
-      <Image src={loginImage}></Image>
-      <LoginForm onSubmit={handleSubmit}>
-        <IdLabel htmlFor="userId">ID</IdLabel>
-        <IdInput type="text" id="userId" onChange={handleId} value={userId} />
-        <LineId />
-        <br />
-        <PasswordLabel htmlFor="password" value={password}>
-          Password
-        </PasswordLabel>
-        <PasswordInput
-          id="password"
-          type="password"
-          onChange={handlePassword}
-        />
-        <LinePassword />
-        <Button type="submit">Login</Button>
-      </LoginForm>
+      {logIn ? (
+        <></>
+      ) : (
+        <>
+          <Image src={loginImage}></Image>
+          <LoginForm onSubmit={handleSubmit}>
+            <IdLabel htmlFor="userId">ID</IdLabel>
+            <IdInput
+              type="text"
+              id="userId"
+              onChange={handleId}
+              value={userId}
+            />
+            <LineId />
+            <br />
+            <PasswordLabel htmlFor="password" value={password}>
+              Password
+            </PasswordLabel>
+            <PasswordInput
+              id="password"
+              type="password"
+              onChange={handlePassword}
+            />
+            <LinePassword />
+            <Button type="submit">Login</Button>
+          </LoginForm>
+        </>
+      )}
     </Container>
   );
 }
@@ -80,7 +93,7 @@ function Login() {
 const Container = styled.main`
   position: absolute;
   top: 90px;
-  left: 16%;
+  left: 18%;
   width: 1190px;
   height: 738px;
   background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
