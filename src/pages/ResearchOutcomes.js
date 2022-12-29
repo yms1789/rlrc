@@ -482,7 +482,7 @@ export default function ResearchOutcomes() {
               </Tab>
             </TabList>
             <Search placeholder="검색" onChange={changeSearch} />
-            <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+            <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Table>
               <tbody>
                 <TableTitle>

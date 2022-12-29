@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
 import styled from "styled-components";
-import styles from "../styles/researchOutcomesAdmin.module.css";
+import styles from "../styles/researchOutcomes.module.css";
 import SearchIcon from "../static/search.png";
 import axios from "axios";
 import Pagination from "../components/Pagination";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../../src/components/AdminNavbar";
 function ResearchOutcomesAdmin() {
   const [content, setContent] = useState("THESIS");
   const [searchText, setSearchText] = useState("");
@@ -92,6 +93,7 @@ function ResearchOutcomesAdmin() {
   }, [content, page]);
   return (
     <main className={styles.main}>
+      <AdminNavbar />
       <OutComes id="outcomes">
         <ThesisButton
           onClick={() => {
@@ -338,7 +340,7 @@ function ResearchOutcomesAdmin() {
                 </TabList>
                 <UploadButton onClick={handleUpload}>파일 업로드</UploadButton>
                 <Search placeholder="검색" onChange={changeSearch} />
-                <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+                <Icon src={SearchIcon} onClick={handleSearch}></Icon>
               </>
             )}
             {isUpload ? (
@@ -510,6 +512,7 @@ function ResearchOutcomesAdmin() {
 }
 const OutComes = styled.div`
   position: relative;
+  top: 330px;
   width: 1920px;
   height: 1050px;
 `;
@@ -562,12 +565,14 @@ const PatenteButton = styled.button`
 
 const ThesisContainer = styled.div`
   position: relative;
+  top: 300px;
   left: 335px;
   height: 1400px;
   width: 1250px;
 `;
 const PatentContainer = styled.div`
   position: relative;
+  top: 300px;
   left: 335px;
   height: 1400px;
   width: 1250px;

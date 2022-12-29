@@ -6,6 +6,7 @@ import axios from "axios";
 import SearchIcon from "../static/search.png";
 import FormEditor from "../components/FormEditor";
 import { useNavigate } from "react-router-dom";
+import AdminNavbar from "../../src/components/AdminNavbar";
 // const page1 = {
 //   content: [
 //     {
@@ -166,6 +167,7 @@ export default function NewNoticeAdmin() {
   return (
     <main className={styles.main}>
       <>
+        <AdminNavbar />
         <Title>NEWS & NOTICE</Title>
         <NewsButton
           onClick={() => {
@@ -541,7 +543,7 @@ const Search = styled.input`
 `;
 const ButtonContainer = styled.div`
   position: relative;
-  top: 88.2em;
+  top: 79.8em;
   left: 81em;
   width: 18em;
   display: flex;
