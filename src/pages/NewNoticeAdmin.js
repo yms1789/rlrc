@@ -6,35 +6,18 @@ import axios from "axios";
 import SearchIcon from "../static/search.png";
 import FormEditor from "../components/FormEditor";
 import { useNavigate } from "react-router-dom";
-const page1 = {
-  content: [],
-};
-const page2 = {
-  content: [
-    {
-      id: 1,
-      attachFile: null,
-      title: "8",
-      content: "11111",
-      dateTime: "2022-12-23T16:15:32.530192",
-      uploadFileName: null,
-      storeFileName: null,
-    },
-  ],
-  numberOfElements: 1,
-};
 
 export default function NewNoticeAdmin() {
   const navigate = useNavigate();
   const [curContent, setCurContent] = useState("news");
-  const [posts, setPosts] = useState(page2);
+  const [posts, setPosts] = useState(null);
   const [page, setPage] = useState(1);
   const [deleteContent, setDeleteContent] = useState(false);
   const [addNews, setAddNews] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
-    Array(posts.numberOfElements).fill(false)
+    posts ? Array(posts.numberOfElements).fill(false) : []
   );
   const handleSearch = async (event) => {
     event.preventDefault();

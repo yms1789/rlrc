@@ -7,20 +7,7 @@ import ContentIndex from "../components/ContentIndex";
 import Navbar from "../components/Navbar";
 import styles from "../styles/newNotice.module.css";
 import styled from "styled-components";
-// const page1 = {
-//   id: 1,
-//   attachFile: [
-//     {
-//       id: 1,
-//       uploadFileName: "asd",
-//     },
-//   ],
-//   title: "8",
-//   content: "11111",
-//   dateTime: "2022-12-23T16:15:32.530192",
-//   uploadFileName: null,
-//   storeFileName: null,
-// };
+
 function Detail() {
   const { state } = useLocation();
 
@@ -30,19 +17,19 @@ function Detail() {
   const id = state[0];
   const content = state[1];
 
-  const getDetailData = useCallback(async (content, id) => {
+  const getDetailData = async (content, id) => {
     try {
       const response = await axios.get(`/${content}/${id}`);
       setDetailData(response.data);
     } catch (error) {
       console.log(error);
     }
-  }, []);
+  };
 
   useEffect(() => {
     getDetailData(content, id);
     console.log(detailData);
-  }, [content, detailData, getDetailData, id]);
+  }, [content, detailData, id]);
 
   return (
     <main className={styles.main}>

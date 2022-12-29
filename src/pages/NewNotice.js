@@ -10,21 +10,6 @@ import axios from "axios";
 import SearchIcon from "../static/search.png";
 import styled from "styled-components";
 
-// const page1 = {
-//   content: [
-//     {
-//       id: 1,
-//       attachFile: null,
-//       title: "8",
-//       content: "11111",
-//       dateTime: "2022-12-23T16:15:32.530192",
-//       uploadFileName: null,
-//       storeFileName: null,
-//     },
-//   ],
-//   numberOfElements: 1,
-// };
-
 export default function NewNotice() {
   const navigate = useNavigate();
   const [showContent, setShowContent] = useState(false);
@@ -33,7 +18,7 @@ export default function NewNotice() {
   const [page, setPage] = useState(1);
   const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
-    Array(posts.numberOfElements).fill(false)
+    posts ? Array(posts.numberOfElements).fill(false) : []
   );
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -142,7 +127,7 @@ export default function NewNotice() {
             <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Line />
             <PaginationContainer>
-              {posts !== null ? (
+              {posts && (
                 <>
                   {posts.content.map((ele) => (
                     <PaginationElement
@@ -193,11 +178,9 @@ export default function NewNotice() {
                     </PaginationElement>
                   ))}
                 </>
-              ) : (
-                <></>
               )}
             </PaginationContainer>
-            {posts !== null ? (
+            {posts && (
               <footer
                 style={{
                   position: "relative",
@@ -212,8 +195,6 @@ export default function NewNotice() {
                   pageSize={posts.size}
                 />
               </footer>
-            ) : (
-              <></>
             )}
           </News>
         ) : (
@@ -223,69 +204,75 @@ export default function NewNotice() {
             <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Line />
             <PaginationContainer>
-              {posts.content.map((ele) => (
-                <PaginationElement
-                  key={ele.id}
-                  onMouseEnter={() => {
-                    handleEnter(ele.id);
-                  }}
-                  onMouseLeave={() => {
-                    handleLeave(ele.id);
-                  }}
-                >
-                  <h3
-                    style={{
-                      paddingLeft: "1.5em",
-                      paddingRight: "1.5em",
-                      marginBlockStart: 80,
-                      marginBlockEnd: 0,
-                      color: "#447bf7",
-                    }}
-                  >
-                    {ele.title}
-                  </h3>
-                  <p
-                    style={{
-                      paddingLeft: "1.7em",
-                      paddingRight: "1.5em",
-                    }}
-                  >
-                    {ele.content}
-                  </p>
-                  <p
-                    style={{
-                      paddingLeft: "1.7em",
-                      paddingRight: "1.5em",
-                    }}
-                  >
-                    {ele.dateTime}
-                  </p>
-                  {showButton[posts.content.length - ele.id] && (
-                    <DetailButton
-                      onClick={() => {
-                        handleClick(ele.id);
+              {posts && (
+                <>
+                  {posts.content.map((ele) => (
+                    <PaginationElement
+                      key={ele.id}
+                      onMouseEnter={() => {
+                        handleEnter(ele.id);
+                      }}
+                      onMouseLeave={() => {
+                        handleLeave(ele.id);
                       }}
                     >
-                      +
-                    </DetailButton>
-                  )}
-                </PaginationElement>
-              ))}
+                      <h3
+                        style={{
+                          paddingLeft: "1.5em",
+                          paddingRight: "1.5em",
+                          marginBlockStart: 80,
+                          marginBlockEnd: 0,
+                          color: "#447bf7",
+                        }}
+                      >
+                        {ele.title}
+                      </h3>
+                      <p
+                        style={{
+                          paddingLeft: "1.7em",
+                          paddingRight: "1.5em",
+                        }}
+                      >
+                        {ele.content}
+                      </p>
+                      <p
+                        style={{
+                          paddingLeft: "1.7em",
+                          paddingRight: "1.5em",
+                        }}
+                      >
+                        {ele.dateTime}
+                      </p>
+                      {showButton[posts.content.length - ele.id] && (
+                        <DetailButton
+                          onClick={() => {
+                            handleClick(ele.id);
+                          }}
+                        >
+                          +
+                        </DetailButton>
+                      )}
+                    </PaginationElement>
+                  ))}
+                </>
+              )}
             </PaginationContainer>
-            <footer
-              style={{
-                position: "relative",
-                right: "50px",
-                top: "2080px",
-              }}
-            >
-              <Pagination
-                total={posts.totalPages}
-                page={page}
-                setPage={setPage}
-                pageSize={posts.size}
-              />
-            </footer>
+            {posts && (
+              <footer
+                style={{
+                  position: "relative",
+                  right: "50px",
+                  top: "2080px",
+                }}
+              >
+                <Pagination
+                  total={posts.totalPages}
+                  page={page}
+                  setPage={setPage}
+                  pageSize={posts.size}
+                />
+              </footer>
+            )}
           </Notice>
         )}
       </>
