@@ -11,6 +11,7 @@ function FormEditor(props) {
   const [selectedFileName, setSelectedFileName] = useState([]);
   const [selectedImageName, setSelectedImageName] = useState("");
   const input = useRef(null);
+  const inputImage = useRef(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   const handleSubmit = async (event) => {
@@ -224,7 +225,7 @@ function FormEditor(props) {
               }}
             >
               <input
-                ref={input}
+                ref={inputImage}
                 type={"file"}
                 onChange={handleImageSelect}
                 style={{
@@ -247,7 +248,7 @@ function FormEditor(props) {
                   height: "47px",
                 }}
                 onClick={() => {
-                  input.current?.click();
+                  inputImage.current?.click();
                 }}
               >
                 <span

@@ -142,7 +142,12 @@ function Detail() {
               })}
           </div>
         </DetailProperties>
-        {detailData && <DetailContent>{detailData.content}</DetailContent>}
+        {detailData && (
+          <DetailContent>
+            <DetailImage src={detailData.image}></DetailImage>
+            {detailData.content}
+          </DetailContent>
+        )}
       </DetailContainer>
     </main>
   );
@@ -265,4 +270,5 @@ const DetailContent = styled.div`
   opacity: 1;
   line-height: 2;
 `;
+const DetailImage = styled.img``;
 export default Detail;

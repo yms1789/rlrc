@@ -124,7 +124,7 @@ function ContentIndex(props) {
                 setShow(false);
               }}
             >
-              로그인
+              관리자
             </StyledLink>
           </TableData>
         </tr>
