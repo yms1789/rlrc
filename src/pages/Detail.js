@@ -34,12 +34,6 @@ function Detail() {
     download.setAttribute("download", imageName);
     download.setAttribute("type", "application/json");
     download.click();
-    // try {
-    //   const response = await axios.get(`/${content}/attach/${fileId}`);
-    //   console.log(response);
-    // } catch (error) {
-    //   console.log(error);
-    // }
   };
 
   useEffect(() => {
@@ -280,7 +274,9 @@ const DetailContent = styled.div`
   line-height: 2;
 `;
 const DetailImage = styled.img`
+  position: relative;
   width: 500px;
   height: 500px;
+  left: 250px;
 `;
 export default Detail;
