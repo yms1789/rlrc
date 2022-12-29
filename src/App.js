@@ -9,6 +9,7 @@ import Login from "./pages/Login";
 import ResearchField from "./pages/ResearchField";
 import Detail from "./pages/Detail";
 import ResearchOutcomes from "./pages/ResearchOutcomes";
+import ResearchOutcomesAdmin from "./pages/ResearchOutcomesAdmin";
 
 function App() {
   return (
@@ -81,6 +82,12 @@ function App() {
           path="/ResearchOutcomes"
           style={{ textDecoration: "none" }}
           element={<ResearchOutcomes />}
+        ></Route>
+        <Route
+          className="ResearchOutcomesAdmin"
+          path="/ResearchOutcomesAdmin"
+          style={{ textDecoration: "none" }}
+          element={<ResearchOutcomesAdmin />}
         ></Route>
       </Routes>
     </div>
