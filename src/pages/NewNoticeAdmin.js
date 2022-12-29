@@ -193,6 +193,7 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
   };
+
   useEffect(() => {
     // 페이지 요청
     searchText ? getNewNoticeSearch(curContent) : getNewNotice(curContent);
@@ -212,6 +213,7 @@ export default function NewNoticeAdmin() {
             setAddNews(false);
             setAddNotice(false);
             setDeleteContent(false);
+            setSearchText("");
           }}
           content={curContent}
           id="new_notice"
@@ -224,6 +226,7 @@ export default function NewNoticeAdmin() {
             setAddNews(false);
             setAddNotice(false);
             setDeleteContent(false);
+            setSearchText("");
           }}
           content={curContent}
         >
