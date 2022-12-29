@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useCallback } from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 import axios from "axios";
 import { Link, useNavigate } from "react-router-dom";
@@ -7,9 +7,7 @@ import ContentIndex from "../components/ContentIndex";
 import Navbar from "../components/Navbar";
 import styles from "../styles/newNotice.module.css";
 import styled from "styled-components";
-const page1 = {
-  content: [],
-};
+
 function Detail() {
   const { state } = useLocation();
 
@@ -98,24 +96,24 @@ function Detail() {
         <DetailTitle>
           <TitleText>
             {/* 박주현 영남대 교수, 세계 상위 1% 연구자 8년 연속 선정 */}
-            {detailData && detailData.map((item) => <span>{item.title}</span>)}
+            {detailData && <span>detailData.title</span>}
           </TitleText>
         </DetailTitle>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
             {/* 2022-12-22 */}
-            {detailData && detailData.map((item) => <span>{item.date}</span>)}
+            {detailData && <span>detailData.date</span>}
           </span>
         </DetailProperties>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>첨부파일</h3>
           <span style={{ fontSize: "18px" }}>
             {detailData &&
-              detailData.map((item) => <span>{item.attachFiles}</span>)}
+              detailData.ttachFiles.map((item) => <span>{item}</span>)}
           </span>
         </DetailProperties>
-        {detailData && detailData.map((item) => <span>{item.content}</span>)}
+        {detailData && <span>detailData.content</span>}
       </DetailContainer>
     </main>
   );
