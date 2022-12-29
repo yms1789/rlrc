@@ -107,7 +107,7 @@ function ContentIndex(props) {
           <TableData>
             <StyledLink
               smooth
-              to="/Research#outcomes"
+              to="/ResearchOutcomes"
               onClick={() => {
                 setShow(false);
               }}
