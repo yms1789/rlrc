@@ -128,7 +128,6 @@ function Detail() {
               detailData.attachFile.map((item) => {
                 return (
                   <span
-                    href=""
                     style={{
                       fontSize: "18px",
                       marginLeft: "15px",
