@@ -304,6 +304,7 @@ function ResearchOutcomesAdmin() {
             <footer
               style={{
                 position: "relative",
+                top: "270px",
                 right: "10px",
               }}
             >
@@ -494,6 +495,7 @@ function ResearchOutcomesAdmin() {
             <footer
               style={{
                 position: "relative",
+                top: "270px",
                 right: "10px",
               }}
             >

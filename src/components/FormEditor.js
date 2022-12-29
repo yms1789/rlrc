@@ -36,6 +36,7 @@ function FormEditor(props) {
       alert("성공");
       console.log(response);
       setAddContents(false);
+      window.location.reload();
     } catch (error) {
       if (error.status === 400) {
         navigate("/Login");
