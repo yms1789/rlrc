@@ -10,7 +10,6 @@ import styled from "styled-components";
 
 function Detail() {
   const { state } = useLocation();
-
   const navigate = useNavigate();
   const [detailData, setDetailData] = useState(null);
   const [showContent, setShowContent] = useState(false);

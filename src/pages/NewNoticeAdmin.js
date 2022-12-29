@@ -153,6 +153,7 @@ export default function NewNoticeAdmin() {
       );
       setPosts(response.data);
     } catch (error) {
+      error.status === 400 && setPosts(null);
       console.log(error);
     }
   };
