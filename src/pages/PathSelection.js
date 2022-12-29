@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import pathSelectionImage from "../static/images/pathSelection.png";
 
-import rightArrow from "../static/rightArrow.png";
+import rightArrow from "../static/rightArrowWhite.png";
 function PathSelection() {
   const navigate = useNavigate();
   return (
