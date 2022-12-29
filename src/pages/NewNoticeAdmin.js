@@ -121,7 +121,7 @@ export default function NewNoticeAdmin() {
               </ButtonContainer>
               <Line />
               <PaginationContainer>
-                {posts !== null ? (
+                {posts && (
                   <>
                     {posts.content.map((ele) => (
                       <PaginationElement
@@ -183,11 +183,9 @@ export default function NewNoticeAdmin() {
                       </PaginationElement>
                     ))}
                   </>
-                ) : (
-                  <></>
                 )}
               </PaginationContainer>
-              {posts !== null ? (
+              {posts && (
                 <footer
                   style={{
                     position: "relative",
@@ -202,8 +200,6 @@ export default function NewNoticeAdmin() {
                     pageSize={posts.size}
                   />
                 </footer>
-              ) : (
-                <></>
               )}
             </News>
           ) : (
@@ -230,7 +226,7 @@ export default function NewNoticeAdmin() {
             </ButtonContainer>
             <Line />
             <PaginationContainer>
-              {posts !== null ? (
+              {posts && (
                 <>
                   {posts.content.map((ele) => (
                     <PaginationElement
@@ -292,11 +288,9 @@ export default function NewNoticeAdmin() {
                     </PaginationElement>
                   ))}
                 </>
-              ) : (
-                <></>
               )}
             </PaginationContainer>
-            {posts !== null ? (
+            {posts && (
               <>
                 <footer
                   style={{
@@ -313,8 +307,6 @@ export default function NewNoticeAdmin() {
                   />
                 </footer>
               </>
-            ) : (
-              <></>
             )}
           </Notice>
         ) : (
