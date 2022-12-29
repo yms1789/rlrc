@@ -10,6 +10,7 @@ import ResearchField from "./pages/ResearchField";
 import Detail from "./pages/Detail";
 import ResearchOutcomes from "./pages/ResearchOutcomes";
 import ResearchOutcomesAdmin from "./pages/ResearchOutcomesAdmin";
+import PathSelection from "./pages/PathSelection";
 
 function App() {
   return (
@@ -88,6 +89,12 @@ function App() {
           path="/ResearchOutcomesAdmin"
           style={{ textDecoration: "none" }}
           element={<ResearchOutcomesAdmin />}
+        ></Route>
+        <Route
+          className="PathSelection"
+          path="/PathSelection"
+          style={{ textDecoration: "none" }}
+          element={<PathSelection />}
         ></Route>
       </Routes>
     </div>
