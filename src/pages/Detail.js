@@ -25,7 +25,14 @@ function Detail() {
       console.log(error);
     }
   };
-
+  const downloadFile = async (fileId) => {
+    try {
+      const response = await axios.get(`/${content}/attach/${fileId}`);
+      setDetailData(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   useEffect(() => {
     getDetailData(content, id);
   }, [content, id]);
@@ -93,24 +100,47 @@ function Detail() {
       </NoticeButton>
       <DetailContainer>
         <DetailTitle>
-          <TitleText>
-            {/* 박주현 영남대 교수, 세계 상위 1% 연구자 8년 연속 선정 */}
-            {detailData && <span>{detailData.title}</span>}
-          </TitleText>
+          <TitleText>{detailData && <span>{detailData.title}</span>}</TitleText>
         </DetailTitle>
         <DetailProperties>
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>등록일</h3>
           <span style={{ fontSize: "18px" }}>
-            {/* 2022-12-22 */}
             {detailData && <span>detailData.date</span>}
           </span>
         </DetailProperties>
-        <DetailProperties>
+        <DetailProperties
+          style={{
+            display: "flex",
+            flexDirection: "row",
+          }}
+        >
           <h3 style={{ marginLeft: "10px", marginRight: "10px" }}>첨부파일</h3>
-          <span style={{ fontSize: "18px" }}>
+          <div
+            style={{
+              display: "flex",
+              flexDirection: "row",
+              width: "1000px",
+            }}
+          >
             {detailData &&
-              detailData.attachFile.map((item) => item.uploadFileName)}
-          </span>
+              detailData.attachFile.map((item) => {
+                return (
+                  <span
+                    href=""
+                    style={{
+                      fontSize: "18px",
+                      marginLeft: "15px",
+                      textDecorationLine: "underline",
+                    }}
+                    onClick={() => {
+                      downloadFile(item.id);
+                    }}
+                  >
+                    {item.uploadFileName}
+                  </span>
+                );
+              })}
+          </div>
         </DetailProperties>
         {detailData && <DetailContent>{detailData.content}</DetailContent>}
       </DetailContainer>
@@ -182,10 +212,11 @@ const NoticeButton = styled.button`
 `;
 const DetailContainer = styled.div`
   position: absolute;
-  top: 1540px;
+  top: 1440px;
   height: 1800px;
   width: 1246px;
   left: 338px;
+  border-top: 3px solid #447bf7;
 `;
 const DetailTitle = styled.div`
   display: flex;
@@ -210,6 +241,7 @@ const TitleText = styled.p`
 `;
 const DetailProperties = styled.div`
   height: 53px;
+  width: 1246px;
   background-color: white;
   border-bottom: 1px solid #b4b4b4;
   opacity: 1;
@@ -226,9 +258,11 @@ const DetailProperties = styled.div`
   opacity: 1;
 `;
 const DetailContent = styled.div`
+  padding: 66px;
   height: 1572px;
-  width: 1246px;
+  width: 1115px;
   border-bottom: 1px solid #b4b4b4;
   opacity: 1;
+  line-height: 2;
 `;
 export default Detail;
