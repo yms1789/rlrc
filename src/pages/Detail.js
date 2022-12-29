@@ -28,13 +28,20 @@ function Detail() {
     }
   };
   const downloadFile = async (fileId) => {
-    try {
-      const response = await axios.get(`/${content}/attach/${fileId}`);
-      console.log(response);
-    } catch (error) {
-      console.log(error);
-    }
+    const url = `/${content}/attach/${fileId}`;
+    const download = document.createElement("a");
+    download.href = url;
+    download.setAttribute("download", imageName);
+    download.setAttribute("type", "application/json");
+    download.click();
+    // try {
+    //   const response = await axios.get(`/${content}/attach/${fileId}`);
+    //   console.log(response);
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
+
   useEffect(() => {
     getDetailData(content, id);
   }, [content, id]);
@@ -145,7 +152,8 @@ function Detail() {
         </DetailProperties>
         {detailData && (
           <DetailContent>
-            <DetailImage src={`/notice/image/${imageName}`} />
+            {imageName && <DetailImage src={`/notice/image/${imageName}`} />}
+            <br />
             {detailData.content}
           </DetailContent>
         )}
@@ -272,7 +280,7 @@ const DetailContent = styled.div`
   line-height: 2;
 `;
 const DetailImage = styled.img`
-  width: 100px;
-  height: 100px;
+  width: 500px;
+  height: 500px;
 `;
 export default Detail;

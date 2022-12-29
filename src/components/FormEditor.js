@@ -62,6 +62,7 @@ function FormEditor(props) {
 
   const handleImageSelect = (event) => {
     const image = event.target.files[0];
+    console.log(image.width, image.height);
     setSelectedImageName(image.name);
     setSelectedImage(image);
   };
