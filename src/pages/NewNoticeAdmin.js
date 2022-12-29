@@ -147,7 +147,9 @@ export default function NewNoticeAdmin() {
   };
   const getNewNotice = async (content) => {
     try {
-      const response = await axios.get(`/${content}/search/all`);
+      const response = await axios.get(
+        `/${content}/search/all?page=${page - 1}`
+      );
       setPosts(response.data);
     } catch (error) {
       console.log(error);

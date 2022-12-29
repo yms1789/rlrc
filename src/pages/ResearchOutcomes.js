@@ -303,7 +303,9 @@ export default function ResearchOutcomes() {
 
   const getThesisPatent = async (content) => {
     try {
-      const response = await axios.get(`/${content}/search/all`);
+      const response = await axios.get(
+        `/${content}/search/all?page=${page - 1}`
+      );
       setPosts(response.data);
     } catch (error) {
       console.log(error);
@@ -516,7 +518,7 @@ export default function ResearchOutcomes() {
             >
               <Pagination
                 total={posts.totalPages}
-                page={page}
+                page={page + 1}
                 setPage={setPage}
                 pageSize={posts.size}
               />
