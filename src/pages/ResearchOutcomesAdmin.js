@@ -13,7 +13,7 @@ function ResearchOutcomesAdmin() {
   const [page, setPage] = useState(1);
   const [isUpload, setUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
-  const [selectedFileName, setSelectedFileName] = useState([]);
+  const [selectedFileName, setSelectedFileName] = useState("");
   const navigate = useNavigate();
   const handleSubmit = async (event) => {
     event.preventDefault();
@@ -23,11 +23,15 @@ function ResearchOutcomesAdmin() {
 
     formData.append("content", content);
     try {
-      const response = await axios.post(`/admin/${content}/read`, formData, {
-        headers: {
-          "Content-Type": "multipart/form-data",
-        },
-      });
+      const response = await axios.post(
+        `/admin/${content.toLowerCase()}/read`,
+        formData,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
       alert("성공");
       console.log(response);
       setUpload(false);
@@ -45,8 +49,9 @@ function ResearchOutcomesAdmin() {
     setUpload(true);
   };
   const handleFileSelect = (event) => {
-    const fileNames = event.target.files[0];
-    setSelectedFileName(fileNames);
+    const file = event.target.files[0];
+    setSelectedFileName(file.name);
+    setSelectedFile(file);
   };
   const getThesisPatent = async (content) => {
     try {
