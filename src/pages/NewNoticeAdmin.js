@@ -166,7 +166,7 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
     setTimeout(() => {
-      navigate("/NewNoticeAdmin", { replace: true });
+      window.location.reload();
     }, 100);
   };
   const getNewNotice = async (content) => {
@@ -284,7 +284,8 @@ export default function NewNoticeAdmin() {
                             {ele.content}
                           </span>
                         </ContentContainer>
-                        {showButton[newsPosts.content.length - ele.id] === true ? (
+                        {showButton[newsPosts.content.length - ele.id] ===
+                        true ? (
                           !deleteContent && (
                             <DetailButton
                               onClick={() => {
@@ -402,7 +403,8 @@ export default function NewNoticeAdmin() {
                           {ele.content}
                         </span>
                       </ContentContainer>
-                      {showButton[noticePosts.content.length - ele.id] === true ? (
+                      {showButton[noticePosts.content.length - ele.id] ===
+                      true ? (
                         !deleteContent && (
                           <DetailButton
                             onClick={() => {

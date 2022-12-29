@@ -13,7 +13,7 @@ function Detail() {
   const navigate = useNavigate();
   const [detailData, setDetailData] = useState(null);
   const [showContent, setShowContent] = useState(false);
-  const [imageUrl, setImageUrl] = useState("");
+  const [imageName, setImageName] = useState("");
   const id = state ? state[0] : 0;
   const content = state ? state[1] : "";
 
@@ -22,7 +22,7 @@ function Detail() {
       const response = await axios.get(`/${content}/${id}`);
       console.log(response);
       setDetailData(response.data);
-      setImageUrl(response.data.filePath);
+      setImageName(response.data.image.storeFileName);
     } catch (error) {
       console.log(error);
     }
@@ -145,7 +145,7 @@ function Detail() {
         </DetailProperties>
         {detailData && (
           <DetailContent>
-            <DetailImage src={imageUrl} />
+            <DetailImage src={`/notice/image/${imageName}`} />
             {detailData.content}
           </DetailContent>
         )}
