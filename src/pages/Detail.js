@@ -14,6 +14,7 @@ function Detail() {
   const navigate = useNavigate();
   const [detailData, setDetailData] = useState(null);
   const [showContent, setShowContent] = useState(false);
+  const [imageUrl, setImageUrl] = useState("");
   const id = state ? state[0] : 0;
   const content = state ? state[1] : "";
 
@@ -21,6 +22,7 @@ function Detail() {
     try {
       const response = await axios.get(`/${content}/${id}`);
       setDetailData(response.data);
+      setImageUrl(response.data.imageFile.filePath);
     } catch (error) {
       console.log(error);
     }
@@ -28,7 +30,7 @@ function Detail() {
   const downloadFile = async (fileId) => {
     try {
       const response = await axios.get(`/${content}/attach/${fileId}`);
-      setDetailData(response.data);
+      console.log(response);
     } catch (error) {
       console.log(error);
     }
@@ -144,7 +146,7 @@ function Detail() {
         </DetailProperties>
         {detailData && (
           <DetailContent>
-            <DetailImage src={detailData.image}></DetailImage>
+            <DetailImage src={imageUrl} />
             {detailData.content}
           </DetailContent>
         )}
@@ -270,5 +272,8 @@ const DetailContent = styled.div`
   opacity: 1;
   line-height: 2;
 `;
-const DetailImage = styled.img``;
+const DetailImage = styled.img`
+  width: 100px;
+  height: 100px;
+`;
 export default Detail;
