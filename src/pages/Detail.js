@@ -20,6 +20,7 @@ function Detail() {
   const getDetailData = async (content, id) => {
     try {
       const response = await axios.get(`/${content}/${id}`);
+      console.log(response);
       setDetailData(response.data);
       setImageUrl(response.data.imageFile.filePath);
     } catch (error) {
