@@ -7,7 +7,9 @@ function FormEditor(props) {
   const setAddContents = props.setAddContents;
   const currentContent = props.content;
   const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedImage, setSelectedImage] = useState(null);
   const [selectedFileName, setSelectedFileName] = useState([]);
+  const [selectedImageName, setSelectedImageName] = useState("");
   const input = useRef(null);
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -22,6 +24,7 @@ function FormEditor(props) {
     if (selectedFile) {
       selectedFile.forEach((file) => formData.append("attachFiles", file));
     }
+    formData.append("imageFile", selectedImage);
     formData.append("content", content);
     try {
       const response = await axios.post(
@@ -54,6 +57,12 @@ function FormEditor(props) {
     const fileNames = Array.from(event.target.files).map((ele) => ele.name);
     setSelectedFileName(fileNames);
     setSelectedFile(Array.from(event.target.files));
+  };
+
+  const handleImageSelect = (event) => {
+    const image = event.target.files[0];
+    setSelectedImageName(image.name);
+    setSelectedImage(image);
   };
   const toAdminHome = () => {
     setAddContents(false);
@@ -178,6 +187,85 @@ function FormEditor(props) {
               <input
                 className="upload-name"
                 placeholder={selectedFileName}
+                style={{
+                  position: "relative",
+                  display: "inline-block",
+                  padding: "0 10px",
+                  verticalAlign: "middle",
+                  border: "1px solid #dddddd",
+                  width: "863px",
+                  height: "47px",
+                  right: "6px",
+                }}
+                readOnly
+              ></input>
+            </td>
+          </tr>
+          <tr>
+            <td
+              style={{
+                width: "160px",
+                height: "84px",
+                background: "#D5D5D5 0% 0% no-repeat padding-box",
+                opacity: 1,
+              }}
+            >
+              <RowTitle>이미지</RowTitle>
+            </td>
+            <td
+              style={{
+                display: "flex",
+                width: "1078px",
+                height: "84px",
+                background: "#F4F4F4 0% 0% no-repeat padding-box",
+                opacity: 1,
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+            >
+              <input
+                ref={input}
+                type={"file"}
+                onChange={handleImageSelect}
+                style={{
+                  display: "none",
+                }}
+                multiple
+              ></input>
+              <label
+                htmlFor="file"
+                style={{
+                  display: "inline-block",
+                  padding: "0px 20px",
+                  color: "#fff",
+                  verticalAlign: "middle",
+                  backgroundColor: "#999999",
+                  cursor: "pointer",
+                  marginLeft: "10px",
+                  textAlign: "center",
+                  width: "83px",
+                  height: "47px",
+                }}
+                onClick={() => {
+                  input.current?.click();
+                }}
+              >
+                <span
+                  style={{
+                    position: "relative",
+                    top: "0.7rem",
+                    font: "normal normal bold 20px/28px Roboto",
+                    letterSpacing: "0px",
+                    color: "#000000",
+                    opacity: 0.7,
+                  }}
+                >
+                  파일선택
+                </span>
+              </label>
+              <input
+                className="upload-name"
+                placeholder={selectedImageName}
                 style={{
                   position: "relative",
                   display: "inline-block",
