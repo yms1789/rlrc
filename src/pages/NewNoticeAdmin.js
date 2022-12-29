@@ -94,14 +94,21 @@ const page1 = {
 export default function NewNoticeAdmin() {
   const navigate = useNavigate();
   const [curContent, setCurContent] = useState("news");
-  const [posts, setPosts] = useState(null);
+  const [newsPosts, setNewsPosts] = useState(null);
+  const [noticePosts, setNoticePosts] = useState(null);
   const [page, setPage] = useState(1);
   const [deleteContent, setDeleteContent] = useState(false);
   const [addNews, setAddNews] = useState(false);
   const [addNotice, setAddNotice] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [showButton, setShowButton] = useState(
-    posts ? Array(posts.numberOfElements).fill(false) : []
+    curContent === "news"
+      ? newsPosts
+        ? Array(newsPosts.numberOfElements).fill(false)
+        : []
+      : noticePosts
+      ? Array(noticePosts.number).fill(false)
+      : []
   );
   const handleSearch = async (event) => {
     event.preventDefault();
@@ -109,7 +116,9 @@ export default function NewNoticeAdmin() {
       const response = await axios.get(
         `/${curContent}/search/title?word=${encodeURIComponent(searchText)}`
       );
-      setPosts(response.data);
+      curContent === "news"
+        ? setNewsPosts(response.data)
+        : setNoticePosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -124,12 +133,24 @@ export default function NewNoticeAdmin() {
     setAddNotice(true);
   };
   const handleEnter = (id) => {
-    let arr = Array(posts.numberOfElements).fill(false);
-    arr[posts.numberOfElements - id] = !arr[posts.numberOfElements - id];
-    setShowButton(arr);
+    if (curContent === "news") {
+      let arr = Array(newsPosts.numberOfElements).fill(false);
+      arr[newsPosts.numberOfElements - id] =
+        !arr[newsPosts.numberOfElements - id];
+      setShowButton(arr);
+    } else {
+      let arr = Array(noticePosts.numberOfElements).fill(false);
+      arr[noticePosts.numberOfElements - id] =
+        !arr[noticePosts.numberOfElements - id];
+      setShowButton(arr);
+    }
   };
   const handleLeave = (id) => {
-    setShowButton(Array(posts.numberOfElements).fill(false));
+    if (curContent === "news") {
+      setShowButton(Array(newsPosts.numberOfElements).fill(false));
+    } else {
+      setShowButton(Array(noticePosts.numberOfElements).fill(false));
+    }
   };
   const handleDelete = () => {
     setDeleteContent(!deleteContent);
@@ -138,7 +159,9 @@ export default function NewNoticeAdmin() {
     console.log(id, content);
     try {
       const response = await axios.delete(`/admin/${content}/${id}`);
-      setPosts(response.data);
+      content === "news"
+        ? setNewsPosts(response.data)
+        : setNoticePosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -151,16 +174,17 @@ export default function NewNoticeAdmin() {
       const response = await axios.get(
         `/${content}/search/all?page=${page - 1}`
       );
-      setPosts(response.data);
+      content === "news"
+        ? setNewsPosts(response.data)
+        : setNoticePosts(response.data);
     } catch (error) {
-      if (error.status === 400) setPosts(null);
       console.log(error);
     }
   };
   useEffect(() => {
     // 페이지 요청
     getNewNotice(curContent);
-  }, [curContent, page, posts]);
+  }, [curContent, page]);
 
   const changeSearch = (event) => {
     setSearchText(event.target.value);
@@ -209,9 +233,9 @@ export default function NewNoticeAdmin() {
               </ButtonContainer>
               <Line />
               <PaginationContainer>
-                {posts && (
+                {newsPosts && (
                   <>
-                    {posts.content.map((ele) => (
+                    {newsPosts.content.map((ele) => (
                       <PaginationElement
                         key={ele.id}
                         onMouseEnter={() => {
@@ -260,7 +284,7 @@ export default function NewNoticeAdmin() {
                             {ele.content}
                           </span>
                         </ContentContainer>
-                        {showButton[posts.content.length - ele.id] === true ? (
+                        {showButton[newsPosts.content.length - ele.id] === true ? (
                           !deleteContent && (
                             <DetailButton
                               onClick={() => {
@@ -286,7 +310,7 @@ export default function NewNoticeAdmin() {
                   </>
                 )}
               </PaginationContainer>
-              {posts && (
+              {newsPosts && (
                 <footer
                   style={{
                     position: "relative",
@@ -295,10 +319,10 @@ export default function NewNoticeAdmin() {
                   }}
                 >
                   <Pagination
-                    total={posts.totalPages}
+                    total={newsPosts.totalPages}
                     page={page}
                     setPage={setPage}
-                    pageSize={posts.size}
+                    pageSize={newsPosts.size}
                   />
                 </footer>
               )}
@@ -327,9 +351,9 @@ export default function NewNoticeAdmin() {
             </ButtonContainer>
             <Line />
             <PaginationContainer>
-              {posts && (
+              {noticePosts && (
                 <>
-                  {posts.content.map((ele) => (
+                  {noticePosts.content.map((ele) => (
                     <PaginationElement
                       key={ele.id}
                       onMouseEnter={() => {
@@ -378,7 +402,7 @@ export default function NewNoticeAdmin() {
                           {ele.content}
                         </span>
                       </ContentContainer>
-                      {showButton[posts.content.length - ele.id] === true ? (
+                      {showButton[noticePosts.content.length - ele.id] === true ? (
                         !deleteContent && (
                           <DetailButton
                             onClick={() => {
@@ -404,7 +428,7 @@ export default function NewNoticeAdmin() {
                 </>
               )}
             </PaginationContainer>
-            {posts && (
+            {noticePosts && (
               <>
                 <footer
                   style={{
@@ -414,10 +438,10 @@ export default function NewNoticeAdmin() {
                   }}
                 >
                   <Pagination
-                    total={posts.totalPages}
+                    total={noticePosts.totalPages}
                     page={page}
                     setPage={setPage}
-                    pageSize={posts.size}
+                    pageSize={noticePosts.size}
                   />
                 </footer>
               </>
