@@ -55,7 +55,7 @@ function ResearchOutcomesAdmin() {
   };
   const getThesisPatent = async (content) => {
     try {
-      const response = await axios.get(`/${content}/search/all`);
+      const response = await axios.get(`/${content.toLowerCase()}/search/all`);
       setPosts(response.data);
     } catch (error) {
       console.log(error);
