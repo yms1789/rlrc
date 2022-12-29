@@ -48,6 +48,19 @@ function ResearchOutcomesAdmin() {
   const handleUpload = () => {
     setUpload(true);
   };
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(
+        `/${content.toLowerCase()}/search/title?word=${encodeURIComponent(
+          searchText
+        )}`
+      );
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
   const handleFileSelect = (event) => {
     const file = event.target.files[0];
     setSelectedFileName(file.name);
@@ -123,7 +136,7 @@ function ResearchOutcomesAdmin() {
                 </TabList>
                 <UploadButton onClick={handleUpload}>파일 업로드</UploadButton>
                 <Search placeholder="검색" onChange={changeSearch} />
-                <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+                <Icon src={SearchIcon} onClick={handleSearch}></Icon>
               </>
             )}
             {isUpload ? (

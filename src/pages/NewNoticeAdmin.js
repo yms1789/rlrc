@@ -142,7 +142,7 @@ export default function NewNoticeAdmin() {
       console.log(error);
     }
     setTimeout(() => {
-      navigate("/NewNoticeAdmin");
+      navigate("/NewNoticeAdmin", { replace: true });
     }, 100);
   };
   const getNewNotice = async (content) => {

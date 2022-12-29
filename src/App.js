@@ -5,12 +5,12 @@ import AboutRLRC from "./pages/AboutRLRC";
 import Research from "./pages/Research";
 import NewNotice from "./pages/NewNotice";
 import NewNoticeAdmin from "./pages/NewNoticeAdmin";
-import Login from "./pages/Login";
 import ResearchField from "./pages/ResearchField";
 import Detail from "./pages/Detail";
 import ResearchOutcomes from "./pages/ResearchOutcomes";
 import ResearchOutcomesAdmin from "./pages/ResearchOutcomesAdmin";
 import PathSelection from "./pages/PathSelection";
+import UserLogin from "./pages/UserLogin";
 
 function App() {
   return (
@@ -67,10 +67,10 @@ function App() {
           element={<NewNoticeAdmin />}
         ></Route>
         <Route
-          className="Login"
-          path="/Login"
+          className="UserLogin"
+          path="/UserLogin"
           style={{ textDecoration: "none" }}
-          element={<Login />}
+          element={<UserLogin />}
         ></Route>
         <Route
           className="Detail"

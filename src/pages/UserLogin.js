@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 // import { useDispatch } from "react-redux";
 // import userSlice from "../slices/user";
 
-function Login() {
+function UserLogin() {
   // const dispatch = useDispatch();
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
@@ -210,4 +210,4 @@ const Button = styled.button`
   text-align: center;
   border: none;
 `;
-export default Login;
+export default UserLogin;

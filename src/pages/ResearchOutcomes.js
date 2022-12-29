@@ -272,6 +272,7 @@ const samplePatent = {
   empty: false,
 };
 */
+
 export default function ResearchOutcomes() {
   const [showContent, setShowContent] = useState(false);
   const [content, setContent] = useState("thesis");
@@ -282,6 +283,19 @@ export default function ResearchOutcomes() {
   const handleSubmit = (event) => {
     event.preventDefault();
     alert(searchText);
+  };
+  const handleSearch = async (event) => {
+    event.preventDefault();
+    try {
+      const response = await axios.get(
+        `/${content.toLowerCase()}/search/title?word=${encodeURIComponent(
+          searchText
+        )}`
+      );
+      setPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
   };
   const changeSearch = (event) => {
     setSearchText(event.target.value);
@@ -357,7 +371,6 @@ export default function ResearchOutcomes() {
         <ThesisButton
           onClick={() => {
             setContent("thesis");
-            // setPosts(sampleThesis);
           }}
           content={content}
           id="new_notice"
@@ -367,7 +380,6 @@ export default function ResearchOutcomes() {
         <PatenteButton
           onClick={() => {
             setContent("patent");
-            // setPosts(samplePatent);
           }}
           content={content}
         >
@@ -395,7 +407,7 @@ export default function ResearchOutcomes() {
               </Tab>
             </TabList>
             <Search placeholder="검색" onChange={changeSearch} />
-            <Icon src={SearchIcon} onClick={handleSubmit}></Icon>
+            <Icon src={SearchIcon} onClick={handleSearch}></Icon>
             <Table border={1}>
               <tbody>
                 <TableTitle>

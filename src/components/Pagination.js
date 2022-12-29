@@ -2,9 +2,9 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import leftArrow from "../static/leftArrow.png";
 import righttArrow from "../static/rightArrow.png";
-function Pagination({ total, page, setPage }) {
-  const numPages = total;
-  const [currPage, setCurrPage] = useState(page);
+function Pagination(props) {
+  const numPages = props.total;
+  const [currPage, setCurrPage] = useState(props.page);
   let firstNum = currPage - (currPage % 5) + 1;
   let lastNum = currPage - (currPage % 5) + 5;
   let totalPage = numPages < 5 ? numPages : 5;
@@ -13,19 +13,19 @@ function Pagination({ total, page, setPage }) {
       <Nav>
         <Button
           onClick={() => {
-            setPage(page - 1);
-            setCurrPage(page - 2);
+            props.setPage(props.page - 1);
+            setCurrPage(props.page - 2);
           }}
           style={{
             border: "none",
           }}
-          disabled={page === 1}
+          disabled={props.page === 1}
         >
           <img src={leftArrow} style={{ width: "7px", height: "14px" }}></img>
         </Button>
         <Button
-          onClick={() => setPage(firstNum)}
-          aria-current={page === firstNum ? "page" : null}
+          onClick={() => props.setPage(firstNum)}
+          aria-current={props.page === firstNum ? "page" : null}
         >
           {firstNum}
         </Button>
@@ -36,8 +36,8 @@ function Pagination({ total, page, setPage }) {
               return (
                 <Button
                   key={i + 1}
-                  onClick={() => setPage(firstNum + i + 1)}
-                  aria-current={page === firstNum + i + 1 ? "page" : null}
+                  onClick={() => props.setPage(firstNum + i + 1)}
+                  aria-current={props.page === firstNum + i + 1 ? "page" : null}
                 >
                   {firstNum + 1 + i}
                 </Button>
@@ -46,8 +46,8 @@ function Pagination({ total, page, setPage }) {
               return (
                 <Button
                   key={i + 1}
-                  onClick={() => setPage(lastNum)}
-                  aria-current={page === lastNum ? "page" : null}
+                  onClick={() => props.setPage(lastNum)}
+                  aria-current={props.page === lastNum ? "page" : null}
                 >
                   {lastNum}
                 </Button>
@@ -56,13 +56,13 @@ function Pagination({ total, page, setPage }) {
           })}
         <Button
           onClick={() => {
-            setPage(page + 1);
-            setCurrPage(page);
+            props.setPage(props.page + 1);
+            setCurrPage(props.page);
           }}
           style={{
             border: "none",
           }}
-          disabled={page === numPages}
+          disabled={props.page === numPages}
         >
           <img src={righttArrow} style={{ width: "7px", height: "14px" }}></img>
         </Button>
