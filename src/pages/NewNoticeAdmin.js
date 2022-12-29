@@ -184,7 +184,7 @@ export default function NewNoticeAdmin() {
   const getNewNoticeSearch = async (content) => {
     try {
       const response = await axios.get(
-        `/${content}/search/all?page=${page - 1}&word=${searchText}`
+        `/${content}/search/title?page=${page - 1}&word=${searchText}`
       );
       content === "news"
         ? setNewsPosts(response.data)
