@@ -278,12 +278,10 @@ export default function ResearchOutcomes() {
   const [content, setContent] = useState("thesis");
   const [searchText, setSearchText] = useState("");
   // const [years, setYears] = useState(null);
-  const [posts, setPosts] = useState(null);
+  const [thesisPosts, setThesisPosts] = useState(null);
+  const [patentPosts, setPatentPosts] = useState(null);
   const [page, setPage] = useState(1);
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    alert(searchText);
-  };
+
   const handleSearch = async (event) => {
     event.preventDefault();
     try {
@@ -292,7 +290,9 @@ export default function ResearchOutcomes() {
           searchText
         )}`
       );
-      setPosts(response.data);
+      content === "thesis"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -306,7 +306,23 @@ export default function ResearchOutcomes() {
       const response = await axios.get(
         `/${content}/search/all?page=${page - 1}`
       );
-      setPosts(response.data);
+      content === "thesis"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getThesisPatentSearch = async (content) => {
+    try {
+      const response = await axios.get(
+        `/${content.toLowerCase()}/search/title?word=${encodeURIComponent(
+          searchText
+        )}`
+      );
+      content === "thesis"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -322,7 +338,7 @@ export default function ResearchOutcomes() {
   useEffect(() => {
     // // 페이지 요청
     // const pageContent = page === 1 ? page1 : page2;
-    getThesisPatent(content);
+    searchText ? getThesisPatentSearch(content) : getThesisPatent(content);
     // getThesisPatentYear(content);
   }, [content, page]);
 
@@ -422,9 +438,9 @@ export default function ResearchOutcomes() {
                   <TableData>JCI</TableData>
                   <TableData>DOI</TableData>
                 </TableTitle>
-                {posts && (
+                {thesisPosts && (
                   <>
-                    {posts.content.map((thesis) => {
+                    {thesisPosts.content.map((thesis) => {
                       return (
                         <>
                           <TableRow>
@@ -445,7 +461,7 @@ export default function ResearchOutcomes() {
               </tbody>
             </Table>
           </ThesisContainer>
-          {posts && (
+          {thesisPosts && (
             <footer
               style={{
                 position: "relative",
@@ -453,10 +469,10 @@ export default function ResearchOutcomes() {
               }}
             >
               <Pagination
-                total={posts.totalPages}
+                total={thesisPosts.totalPages}
                 page={page}
                 setPage={setPage}
-                pageSize={posts.size}
+                pageSize={thesisPosts.size}
               />
             </footer>
           )}
@@ -492,8 +508,8 @@ export default function ResearchOutcomes() {
                   <TableData>Title</TableData>
                   <TableData>Author</TableData>
                 </TableTitle>
-                {posts &&
-                  posts.content.map((patent) => {
+                {patentPosts &&
+                  patentPosts.content.map((patent) => {
                     return (
                       <>
                         <TableRow>
@@ -509,7 +525,7 @@ export default function ResearchOutcomes() {
               </tbody>
             </Table>
           </PatentContainer>
-          {posts && (
+          {patentPosts && (
             <footer
               style={{
                 position: "relative",
@@ -517,10 +533,10 @@ export default function ResearchOutcomes() {
               }}
             >
               <Pagination
-                total={posts.totalPages}
+                total={patentPosts.totalPages}
                 page={page + 1}
                 setPage={setPage}
-                pageSize={posts.size}
+                pageSize={patentPosts.size}
               />
             </footer>
           )}

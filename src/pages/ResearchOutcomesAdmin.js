@@ -10,7 +10,8 @@ function ResearchOutcomesAdmin() {
   const [content, setContent] = useState("THESIS");
   const [searchText, setSearchText] = useState("");
   // const [years, setYears] = useState(null);
-  const [posts, setPosts] = useState(null);
+  const [thesisPosts, setThesisPosts] = useState(null);
+  const [patentPosts, setPatentPosts] = useState(null);
   const [page, setPage] = useState(1);
   const [isUpload, setUpload] = useState(false);
   const [selectedFile, setSelectedFile] = useState(null);
@@ -33,7 +34,7 @@ function ResearchOutcomesAdmin() {
           },
         }
       );
-      alert("성공");
+      alert("업로드 성공");
       console.log(response);
       setUpload(false);
       window.location.reload();
@@ -58,7 +59,9 @@ function ResearchOutcomesAdmin() {
           searchText
         )}`
       );
-      setPosts(response.data);
+      content === "THESIS"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -73,7 +76,23 @@ function ResearchOutcomesAdmin() {
       const response = await axios.get(
         `/${content.toLowerCase()}/search/all?page=${page - 1}`
       );
-      setPosts(response.data);
+      content === "THESIS"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getThesisPatentSearch = async (content) => {
+    try {
+      const response = await axios.get(
+        `/${content.toLowerCase()}/search/title?word=${encodeURIComponent(
+          searchText
+        )}`
+      );
+      content === "thesis"
+        ? setThesisPosts(response.data)
+        : setPatentPosts(response.data);
     } catch (error) {
       console.log(error);
     }
@@ -88,7 +107,7 @@ function ResearchOutcomesAdmin() {
   // };
   useEffect(() => {
     // // 페이지 요청
-    getThesisPatent(content);
+    searchText ? getThesisPatentSearch(content) : getThesisPatent(content);
     // getThesisPatentYear(content);
   }, [content, page]);
   return (
@@ -276,9 +295,9 @@ function ResearchOutcomesAdmin() {
                     <TableData>JCI</TableData>
                     <TableData>DOI</TableData>
                   </TableTitle>
-                  {posts && (
+                  {thesisPosts && (
                     <>
-                      {posts.content.map((thesis) => {
+                      {thesisPosts.content.map((thesis) => {
                         return (
                           <>
                             <TableRow>
@@ -300,7 +319,7 @@ function ResearchOutcomesAdmin() {
               </Table>
             )}
           </ThesisContainer>
-          {posts && (
+          {thesisPosts && (
             <footer
               style={{
                 position: "relative",
@@ -309,10 +328,10 @@ function ResearchOutcomesAdmin() {
               }}
             >
               <Pagination
-                total={posts.totalPages}
+                total={thesisPosts.totalPages}
                 page={page}
                 setPage={setPage}
-                pageSize={posts.size}
+                pageSize={thesisPosts.size}
               />
             </footer>
           )}
@@ -472,8 +491,8 @@ function ResearchOutcomesAdmin() {
                       <TableData>Title</TableData>
                       <TableData>Author</TableData>
                     </TableTitle>
-                    {posts &&
-                      posts.content.map((patent) => {
+                    {patentPosts &&
+                      patentPosts.content.map((patent) => {
                         return (
                           <>
                             <TableRow>
@@ -491,7 +510,7 @@ function ResearchOutcomesAdmin() {
               </>
             )}
           </PatentContainer>
-          {posts && (
+          {patentPosts && (
             <footer
               style={{
                 position: "relative",
@@ -500,10 +519,10 @@ function ResearchOutcomesAdmin() {
               }}
             >
               <Pagination
-                total={posts.totalPages}
+                total={patentPosts.totalPages}
                 page={page}
                 setPage={setPage}
-                pageSize={posts.size}
+                pageSize={patentPosts.size}
               />
             </footer>
           )}

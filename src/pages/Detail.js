@@ -149,7 +149,7 @@ function Detail() {
             {imageName && <DetailImage src={`/notice/image/${imageName}`} />}
             <br />
             <br />
-            {detailData.content}
+            <span style={{ whiteSpace: "pre-wrap" }}>{detailData.content}</span>
           </DetailContent>
         )}
       </DetailContainer>
